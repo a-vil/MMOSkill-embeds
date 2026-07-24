@@ -2,60 +2,125 @@
 
 # 🎯 MMOSkill-embeds
 
-**Content management and delivery system** for MMO skill information.
-Converts plain English text → structured Spanish → Discord embeds.
+> **Content localization and publishing pipeline** for MMO skills.
+>
+> Converts plain English text into a structured domain model, using AI-assisted translation and game-specific rules, then automatically generates Discord embeds.
 
-## Pipeline
+## Why this project exists
 
-```
-data/*.txt (EN source)
-    ↓  Translation with controlled vocabulary
-data/es_*.py (SkillText in Spanish)
-    ↓  Embed builders
-embeds/*.py (discord.Embed)
-    ↓  Bot commands
-!skshot, !skmagic, !skblade, !skmartial, !skhalberd
+Maintaining MMO skill documentation in Discord is repetitive and error-prone:
+
+- copying information from the game
+- translating manually
+- keeping terminology consistent
+- creating embeds one by one
+- maintaining indexes
+
+This project automates that workflow by separating processing from presentation.
+
+## Architecture
+
+```text
+Plain text (EN)
+        │
+        ▼
+AI-assisted translation
+        │
+        ▼
+Localization rules
+(dictionaries, exclusions, terminology)
+        │
+        ▼
+Domain model
+SkillText
+        │
+        ▼
+Presentation builders
+        │
+        ▼
+Discord embeds
 ```
 
 ## Features
 
-- **5 skill branches** complete: Shot, Magic, Blade, Martial, Halberd
-- **EN→ES translation pipeline** with custom dictionaries and excluded words
-- **Modular architecture** — each branch is just 4 files following the same pattern
-- **Auto index system** with clickable Discord links, multi-server
-- **Custom emojis** with plain text fallback
-- **Aliases** for quick skill access
-- **WIP:** Katana, Dual
+- 🌐 English → Spanish localization pipeline
+- 🤖 AI-assisted translation workflow
+- 📚 Custom dictionaries
+- 🚫 Technical term exclusions
+- 🧩 Domain model (`SkillText`) decoupled from Discord
+- 🏗 Modular, decoupled architecture
+- 🔗 Automatic indexes with clickable navigation
+- 🌍 Multi-server compatible
+- 😀 Custom emoji support with text fallback
+- ⚡ Alias system for quick access
+- 🔄 Easy to extend with new skill branches
+
+## Domain model
+
+Every skill is converted into a structured model before any output is generated:
+
+```python
+@dataclass(frozen=True)
+class SkillText:
+    title: str        # Skill name
+    description: str  # In-game description
+    details: str      # Stats, formulas, effects, bonuses
+```
+
+This intermediate representation keeps processing independent from presentation and allows reuse across different output formats.
+
+## Implemented branches
+
+| Branch | Skills | Command |
+|--------|-------:|---------|
+| Shot | 25 | `!skshot` |
+| Magic | 24 | `!skmagic` |
+| Blade | 24 | `!skblade` |
+| Martial | 23 | `!skmartial` |
+| Halberd | 24 | `!skhalberd` |
+
+**Over 120 documented skills.**
 
 ## Commands
 
-| Command | Branches |
-|---------|----------|
-| `!skshot` | Shot (25 skills) |
-| `!skmagic` | Magic (24 skills) |
-| `!skblade` | Blade (24 skills) |
-| `!skmartial` | Martial (23 skills) |
-| `!skhalberd` | Halberd (24 skills) |
-
-Each command supports: `<skill>`, `<skill> save`, `<tier>`, `all`, `list`, `index`, `nuke`, `scan`.
-
-## Project Structure
+Every branch supports the same subcommands:
 
 ```
+<skill>        Show a skill
+<skill> save   Show and register in the index
+<tier>         Show a full tier (t1-t5)
+all            Show all skills
+list           List available skills
+index          Show or update the index
+scan           Scan channel and register already-sent skills
+nuke           Delete bot messages and reset the index
+```
+
+## Project structure
+
+```text
 MMOSkill-embeds/
-├── bot.py                 # Entry point + !clean
-├── branches/              # Command registration (1 per branch)
-│   ├── _base.py           # Generic BranchHandlers
+│
+├── bot.py
+│
+├── branches/
+│   ├── _base.py          # Generic BranchHandlers
 │   ├── shot.py
 │   ├── magic.py
 │   ├── sblade.py
 │   ├── martial.py
 │   └── halberd.py
-├── embeds/                # Embed builders
-├── data/                  # Translations (es_*.py) + EN sources
-├── storage/               # JSON persistence per branch
-├── imgs/                  # Assets per branch
-├── sort_lists.py          # Sorts translation lists
+│
+├── embeds/               # Embed builders
+│
+├── data/                 # Translations (es_*.py) + EN sources
+│
+├── storage/              # JSON persistence per branch
+│
+├── imgs/                 # Assets per branch
+│
+├── sort_lists.py         # Sorts translation lists
+│
 ├── .env.example
 └── requirements.txt
 ```
@@ -63,16 +128,48 @@ MMOSkill-embeds/
 ## Installation
 
 ```bash
-git clone https://github.com/<user>/MMOSkill-embeds.git
+git clone https://github.com/a-vil/MMOSkill-embeds.git
 cd MMOSkill-embeds
 pip install -r requirements.txt
 ```
 
-Copy `.env.example` to `.env`, add your `DISCORD_TOKEN`, and run:
+Copy `.env.example` to `.env`, add your `DISCORD_TOKEN`:
+
+```env
+DISCORD_TOKEN=your_token_here
+```
+
+Run:
 
 ```bash
 python bot.py
 ```
+
+> 💡 Includes `sort_lists.py` to keep translation dictionaries sorted.
+
+## Roadmap
+
+### Branches
+- [x] Shot
+- [x] Magic
+- [x] Blade
+- [x] Martial
+- [x] Halberd
+- [ ] Katana
+- [ ] Dual Sword
+
+### Project
+- [ ] Unit tests
+- [ ] CI/CD
+- [ ] Docker
+- [ ] CLI
+
+### Exporters
+- [ ] JSON
+- [ ] Markdown
+- [ ] HTML
+
+---
 
 ## License
 
