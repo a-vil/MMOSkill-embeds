@@ -1,0 +1,97 @@
+# Traducciones personalizadas (orden alfabético)
+# Formato: inglés → español
+# Soporta variables con {n}
+
+[Active] → [Activo]
+[Passive] → [Pasivo]
+Additional Hits → Golpes Adicionales
+Ailment Chance → Chance de Ailment
+Ailment Duration → Duración de Ailment
+Ailment Resistance → Resistencia a Ailment
+Arrow sub → sub Arrow
+auto attack multiplier booster skills → habilidad que potencie el multiplicador de los autoataques
+Base AGI → BaseAGI
+Base Ailment Chance → Chance Base de Ailment
+Base Cast Time → Tiempo de Cast Base
+Base DEX → BaseDEX
+Base INT → BaseINT
+Base STR → BaseSTR
+base VIT → BaseVIT
+Base VIT → BaseVIT
+blind ailments → Ailment Blind
+Blind Rate → Blind Chance
+Bow bonus → Bow bonus
+Bowgun bonus → Bowgun bonus
+Bowgun penalty → Penalidad Bowgun
+Bowtana → Bowtana
+break time → tiempo de break
+Buff Duration → Duración del Buff
+Buff Effect → Efecto del Buff
+bypass → ignorar
+Charge Time → Tiempo de carga
+Critical Damage → Critical Damage
+Critical Rate → Critical Rate
+Damage Type → Tipo de daño
+Dark Tree → Dark Skills
+decoy from Decoy Shot → señuelo de Decoy Shot
+decoy hit count → Numero de golpes de Decoy
+decoy hit range → Rango de golpe de Decoy
+Decoy Hit → Golpe de Decoy
+decoy's Decoy Auto Multiplier → Decoy Auto Multiplier
+Dual Element → Elemento Dual
+Fatal Shot Critical Rate → Critical Rate de Fatal Shot
+Fatal Shot Skill Accuracy → Accuracy de Fatal Shot
+for that hit only → solo para ese golpe
+Game Description → Descripción del juego
+Guild Bar Equipment → Equipamiento de Gremio
+Halberd bonus → Halberd bonus
+Halberd only → Solo {halberd}
+Halberd Tree → Halberd Skills
+high critical rate → alto Critical Rate
+Hit Count → Número de golpes
+Hit Range → Alcance del golpe
+Katana bonus → Katana bonus
+Katana Main/Sub only → Solo Main/Sub {katana}
+Katana only → Solo {katana}
+lrd → LRD
+Lv {n} Skill → Habilidad Tier {n}
+Magic Tree → Magic Skills
+Magical Resistance → Magic Resistance
+Main Hit → Golpe Principal
+Main Katana Only → Solo Main {katana}
+Main Magic Device only → Solo Main {magicdevice}
+Maximum Cast Range → Alcance máximo de Cast
+MP Cost → Coste MP
+MP recovery → Recuperación de MP
+No Limit → Sin Restricciones {all}
+non-boss map → mapas que no son de jefe
+OHS/Staff/Main Magic Device Only → Solo OHS/{staff}/Main {magicdevice}
+One-Handed Sword penalty → Penalidad OHS
+One-Handed Sword/Halberd only → Solo {ohs} / {halberd}
+paralysis ailments → Ailment Paralysis
+Paralysis Rate → Paralysis Chance
+Passive Effect → Efecto Pasivo
+Physical and Magical Resistance → Physical y Magic Resistance
+Rate → Chance
+Scroll Tree → Scroll Skills
+Skill Effect → Efecto de la habilidad
+slow ailments → Ailment Slow
+Slow Down → Ralentizar
+srd → SRD
+Stack Multiplier Bonus → Stack Multiplier Bonus
+Staff Only → Solo {staff}
+Staff/Magic Device only → Solo {staff} / {magicdevice}
+Staff/Main Magic Device Only → Solo {staff} / Main {magicdevice}
+Stop ailment → Ailment Stop
+tap break time → tiempo de tap break
+they will not decrease → no disminuirán
+Total AGI → TotalAGI
+Total Dex → TotalDEX
+Total INT → TotalINT
+Total Str → TotalSTR
+Total VIT → TotalVIT
+TotalDex → TotalDEX
+TotalStr → TotalSTR
+Triple Thrust's Skill Constant buff → Buff a la constante de Triple Thrust's
+Tuning Point → Punto de Ajuste
+Visual Stack Max Count → Contador de Stacks Visuales

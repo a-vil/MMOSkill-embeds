@@ -1,0 +1,257 @@
+# Palabras que no se traducen (orden alfabético)
+# words_custom.txt tiene prioridad sobre este archivo
+
+Absolute Critical
+Accuracy
+Aggro
+Ailment
+Ailments
+AMPR
+Anticipate
+AoE
+Arm Break
+Armor Break
+Arrow
+Arrow Rain
+ATK
+attack cast
+Attack MP Recovery
+Attack Speed
+Auspicious Wind
+awaken element
+Barehand
+Barrier HP
+Base Charge Time
+Base Revive Time
+Base Skill Constant
+Base Skill Multiplier
+baseDex
+baseStability
+BaseWATK
+Berserk
+Bleed
+Blind
+Bloodsucker
+Bloodsucker(lifesteal)
+Bonus
+Bonus Base Skill Multiplier
+Boss
+Bosses
+Bouncing Blade
+Bow
+Bowgun
+Bowtana
+Brave Aura
+Buff
+Bullseye
+Cast
+Cast Speed
+Cast Time Reduction
+cast's
+Chain Cast
+Chain Stack
+Chance
+Chronos Shift
+Cloning
+combo
+combo tag
+combo tag's
+combo tags
+Concentrate
+Cover
+Critical Damage
+Critical Rate
+Cross Fire
+CrossFire
+CSPD
+Curse
+Dagger
+Dark
+Dauntless
+Dazzled
+Decoy
+Decoy Auto
+Decoy Shot
+Divine Slash
+Dodge
+Dual Swords
+Earth
+Easterly Wind
+Easy
+Element Starter
+Enchant Sword
+Enchanted Barriers
+Enhanced Auto Attack
+Ether Flare
+evade
+Evasion
+Fatal Shot
+Final Cast Time
+Final Revive Time
+Fire
+First Aid
+Flat MaxHP
+Flinch
+Floor
+Four Seasons
+Freeze
+Fulgurite
+Garyou
+Godspeed Wield
+Grand Buster Lance
+graze
+grazed
+Guard
+Guard Break
+Guard Power Break
+Guardian Beam
+Gust
+Halberd
+Hard
+Hit
+Hits
+Holy Light
+HP
+Hunter
+Hunting Buddy
+Icicles
+Ignite
+Imperial Rays
+insta cast
+Kairiki
+Kairiki Ranshin
+Katana
+Knockback
+Knuckle
+Knuckles
+Lethargy
+Light
+Long Range
+Long Range Damage
+Lux Vortex
+m.pierce
+Magic Cannon
+Magic Crash
+Magic Device
+Magic Knife
+Magic Laser
+Magic Mastery
+Magic Pierce
+Magic Resistance
+Magic Skin
+Magic Stability
+Magic: Arrow
+Magic: Arrows
+Magic: Blast
+Magic: Burst
+Magic: Crash
+Magic: Finale
+Magic: Guardian Beam
+Magic: Impact
+Magic: Javelin
+Magic: Lances
+Magic: Laser
+Magic: Magic Cannon
+Magic: Storm
+Magic: Wall
+Mana Crystal
+Mana Explosion
+Mana Recharge
+Mana Thrash
+Martial Skills
+MATK
+MaxHP
+MaxHP%
+mburst
+MD
+Mind's eye
+miniboss
+minibosses
+miss
+Moeba Shot
+Mononofu
+Motion Speed
+MP
+MP Charge
+Nemesis
+Neutral
+Nightmare
+Northerly Wind
+OHS
+One-Handed Sword
+Overheat
+Parabola Shot
+Paralysis
+Paralysis Shot
+Perfect Aim
+Phantom's Library
+Physical Pierce
+Physical Resistance
+Piercing Shot
+Play Dead
+Poison
+Power Shot
+Power Wave
+Power Wave Modifier
+Prayer
+proration
+Pulse Blade
+Punish Ray
+Qadal
+Quick Draw
+Quick Loader
+Rampage
+Rapid Charge
+Red Tear
+registlet
+registlets
+Retrograde Shot
+Royal Heal
+Saber Aura
+Sakura Ranman
+Samurai Archery
+Save
+Shadowless Slash
+Short Range Damage
+Shot Mastery
+Silence
+Skill Level
+Skill Multiplier
+Slow
+Smite
+Smoke Dust
+Sneak Attack
+Snipe
+Southerly Wind
+Spell Calibration
+Spirit
+Spread Shot
+Stability
+Stack
+Stack Multiplier Bonus
+Stacks
+Staff
+Still Wind
+Stop
+Suction
+Super Gust
+swift
+Swift Pulse Blade
+tags
+Tenryu
+Total Cast Time
+Triple Thrust's
+TRUNC
+Tumble
+Twin Storm
+Ultimate
+Unsheathe
+Vanquisher
+Vulcan
+Water
+Weaken
+Weapon ATK
+Westerly Wind
+Whack
+Wind
+Zephyr Rush
