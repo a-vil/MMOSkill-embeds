@@ -2,44 +2,21 @@
 
 # 🎯 MMOSkill-embeds
 
-> **Content localization and publishing pipeline** for MMO skills.
+> **Content localization and publishing pipeline for MMO skills.**
 >
-> Converts plain English text into a structured domain model, using AI-assisted translation and game-specific rules, then automatically generates Discord embeds.
+> MMOSkill-embeds automates the transformation of plain text into structured, localized content, automatically generating Discord embeds through a modular pipeline.
 
-## Why this project exists
+## What it does
 
-Maintaining MMO skill documentation in Discord is repetitive and error-prone:
+This project solves a repetitive workflow:
 
-- copying information from the game
-- translating manually
+- translating skills
 - keeping terminology consistent
-- creating embeds one by one
+- preserving game vocabulary
+- generating embeds
 - maintaining indexes
 
-This project automates that workflow by separating processing from presentation.
-
-## Architecture
-
-```text
-Plain text (EN)
-        │
-        ▼
-AI-assisted translation
-        │
-        ▼
-Localization rules
-(dictionaries, exclusions, terminology)
-        │
-        ▼
-Domain model
-SkillText
-        │
-        ▼
-Presentation builders
-        │
-        ▼
-Discord embeds
-```
+The entire flow is automated through a processing pipeline.
 
 ## Features
 
@@ -55,19 +32,27 @@ Discord embeds
 - ⚡ Alias system for quick access
 - 🔄 Easy to extend with new skill branches
 
-## Domain model
+## Architecture
 
-Every skill is converted into a structured model before any output is generated:
-
-```python
-@dataclass(frozen=True)
-class SkillText:
-    title: str        # Skill name
-    description: str  # In-game description
-    details: str      # Stats, formulas, effects, bonuses
+```text
+Source text
+      │
+      ▼
+Localization pipeline
+      │
+      ▼
+SkillText
+      │
+      ▼
+Embed Builder
+      │
+      ▼
+Discord
 ```
 
-This intermediate representation keeps processing independent from presentation and allows reuse across different output formats.
+For internal design details see:
+
+> 📖 **ARCHITECTURE.md**
 
 ## Implemented branches
 
@@ -96,39 +81,10 @@ scan           Scan channel and register already-sent skills
 nuke           Delete bot messages and reset the index
 ```
 
-## Project structure
-
-```text
-MMOSkill-embeds/
-│
-├── bot.py
-│
-├── branches/
-│   ├── _base.py          # Generic BranchHandlers
-│   ├── shot.py
-│   ├── magic.py
-│   ├── sblade.py
-│   ├── martial.py
-│   └── halberd.py
-│
-├── embeds/               # Embed builders
-│
-├── data/                 # Translations (es_*.py) + EN sources
-│
-├── storage/              # JSON persistence per branch
-│
-├── imgs/                 # Assets per branch
-│
-├── sort_lists.py         # Sorts translation lists
-│
-├── .env.example
-└── requirements.txt
-```
-
 ## Installation
 
 ```bash
-git clone https://github.com/a-vil/MMOSkill-embeds.git
+git clone https://github.com/a-vil/MMOSkill-embeds
 cd MMOSkill-embeds
 pip install -r requirements.txt
 ```
@@ -169,8 +125,15 @@ python bot.py
 - [ ] Markdown
 - [ ] HTML
 
----
+## Contributing
+
+Contributions are welcome.
+
+Before making significant changes, review:
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md)
+- [AGENTS.md](./AGENTS.md)
 
 ## License
 
-[MIT](LICENSE)
+[PolyForm Noncommercial 1.0.0](LICENSE)

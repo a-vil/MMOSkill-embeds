@@ -1,48 +1,64 @@
-# AGENTS.md
+# 🤖 AGENTS.md
 
-Bot de Discord para embeds de habilidades de MMO en 5 ramas: Shot, Magic, Blade, Martial, Halberd.
-Comandos: `!skshot`, `!skmagic`, `!skblade`, `!skhalberd`, `!skmartial`, `!skkatana`.
-Cada uno con subcomandos.
+Este documento contiene instrucciones para agentes de IA que colaboren en el proyecto.
 
-## Comandos
+---
 
-| Acción | Comando |
-|--------|---------|
-| Ejecutar bot | `python bot.py` |
-| Instalar dependencias | `pip install -r requirements.txt` |
+## Antes de comenzar
 
-- Requiere `DISCORD_TOKEN` en `.env` (copiar `.env.example`).
-- `python-dotenv` carga `.env` automáticamente.
-- `message_content` intent habilitado — el bot lee mensajes con prefijo `!`.
+Leer obligatoriamente:
 
-## Estructura del Proyecto
+1. [ARCHITECTURE.md](./ARCHITECTURE.md)
+2. [REQUIREMENTS.md](./REQUIREMENTS.md)
 
-- `bot.py` — entry point, configuración del bot, comando `!clean`
-- `branches/*.py` — registro de comandos (1 archivo por rama, usa `BranchHandlers` genérico)
-- `embeds/*.py` — builders de embeds (skill keys, tiers, aliases, imágenes, emojis)
-- `data/es_*.py` — traducciones `SkillText` por rama
-- `data/*.txt` / `data/*.md` — archivos fuente en inglés
-- `storage/*.py` — persistencia JSON por rama
-- `imgs/` — assets de imágenes por rama
-- `.env` — contiene `DISCORD_TOKEN` y variables de emojis personalizados
-- `sort_lists.py` — ordena `words_custom.txt` y `words_excluded.txt`
+No asumir comportamientos que no estén documentados.
 
-## Convenciones
+---
 
-- Usa `discord.Embed` con `discord.Color.blue()` para todos los embeds.
-- Cada skill = 1 embed de resumen + 1 o más embeds de detalle (halberd usa `SKILL_EXTRA` para contenido que no entra).
-- Las definiciones de skills viven en `data/es_*.py`, los builders en `embeds/*.py`.
-- El bot solo envía embeds predefinidos — sin generación dinámica de contenido.
-- Código simple, modular y escalable. Sin complejidad innecesaria.
+## Objetivo
 
-## Patrón de Ramas
+Ayudar en el desarrollo manteniendo la arquitectura existente.
 
-Cada rama de skill sigue:
+El objetivo **no** es reescribir el proyecto.
+
+---
+
+## Principios
+
+### Respetar el modelo
+
+`SkillText` es la fuente de verdad.
+
+No generar embeds directamente desde texto.
+
+### No mezclar responsabilidades
+
+Mantener separadas las siguientes capas:
+
+- localización
+- normalización
+- modelo
+- presentación
+
+### Mantener el patrón existente
+
+Nuevas ramas deben seguir exactamente esta estructura:
+
 ```
-data/*.txt → data/es_*.py → embeds/*.py → branches/*.py → bot.py
+data/*.txt → data/es_*.py → embeds/*.py → branches/*.py → branches/__init__.py → bot.py
 ```
 
-## Ramas Completadas
+No introducir arquitecturas distintas para resolver el mismo problema.
+
+### Cambios mínimos
+
+Preferir modificaciones pequeñas antes que grandes refactorizaciones.
+
+---
+
+## Ramas
+
+### Completadas
 
 - Shot (25 skills, `!skshot`)
 - Magic (24 skills, `!skmagic`)
@@ -50,26 +66,103 @@ data/*.txt → data/es_*.py → embeds/*.py → branches/*.py → bot.py
 - Martial (23 skills, `!skmartial`)
 - Halberd (24 skills, `!skhalberd`)
 
-## Ramas en Progreso (WIP)
+### En progreso (WIP)
 
 - Katana (`data/es_skatana.py` traducida, faltan embeds/storage/branches)
 - Dual (solo existe `data/sdual.txt` fuente)
+
+---
 
 ## Traducción
 
 Al trabajar en traducciones, **vuelve a leer** `.opencode/skills/translate-en-es/STYLE_GUIDE.md`,
 `.opencode/skills/translate-en-es/SKILL.md`,
-`words_custom.txt` y `words_excluded.txt` por completo antes de traducir o
-responder preguntas sobre reglas existentes. **NO respondas de memoria o
-por intuición — primero lee, luego responde.**
+`data/words_custom.txt` y `data/words_excluded.txt` por completo antes de traducir.
 
 - Las traducciones personalizadas (`words_custom.txt`) tienen prioridad (incluso sobre palabras excluidas).
 - Las palabras excluidas (`words_excluded.txt`) nunca se traducen (a menos que tengan una personalizada).
 - El resto usa traducción asistida por IA.
 - Las variables `{placeholder}` en details deben preservarse exactamente.
+- Después de editar `words_custom.txt` o `words_excluded.txt`, ejecutar `sort_lists.py` para mantenerlos ordenados.
 
-## Reglas de comportamiento
+---
 
-- NO asumas decisiones que afecten al usuario.
-- Ante cualquier duda, pregunta al usuario antes de proceder.
-- Esto aplica a: formato de código, decisiones de traducción, estructura de archivos y cualquier otra elección.
+## Restricciones
+
+No:
+
+- mover archivos sin motivo
+- duplicar lógica
+- romper compatibilidad
+- modificar la estructura de carpetas sin aprobación
+- asumir decisiones que afecten al usuario sin preguntar
+
+---
+
+## Flujo recomendado
+
+1. Leer ARCHITECTURE.md
+2. Identificar el módulo afectado
+3. Implementar únicamente el cambio solicitado
+4. Mantener la arquitectura existente
+5. Verificar que no se rompe ninguna rama
+
+---
+
+## Al añadir una rama
+
+Seguir este orden consultando [REQUIREMENTS.md](./REQUIREMENTS.md) para los contratos exactos:
+
+1. **Data** — crear `data/es_nombre.py` con `SkillText` de cada skill
+2. **Embeds** — crear `embeds/nombre.py` con `SKILL_KEYS`, `TIERS`, `ALIASES`, builders
+3. **Storage** — crear `storage/nombre_index.py` con persistencia JSON
+4. **Branch** — crear `branches/nombre.py` con `BranchConfig` + `register(bot)`
+5. **Registro** — añadir import y `register(bot)` en `branches/__init__.py`
+6. **Assets** — crear `imgs/nombre/` con imágenes de cada skill
+7. **Entorno** — añadir emoji vars al `.env.example`
+
+No copiar lógica que ya exista en `_base.py`.
+
+---
+
+## Verificación
+
+Después de implementar una rama, verificar:
+
+- `python -c "from branches.nombre import register; print('OK')"` — el módulo importa sin errores
+- `branches/__init__.py` importa el nuevo módulo y lo registra en `register_all()`
+- `.env.example` tiene las variables de emoji de la nueva rama
+- `imgs/nombre/` existe con los assets necesarios
+- Las ramas existentes siguen funcionando (verificar imports)
+
+---
+
+## Buenas prácticas
+
+Preferir:
+
+- reutilización
+- composición
+- funciones pequeñas
+- nombres descriptivos
+- tipado cuando sea posible
+
+Evitar:
+
+- lógica duplicada
+- funciones excesivamente largas
+- dependencias circulares
+- acoplamiento entre módulos
+
+---
+
+## Objetivo final
+
+El proyecto debe seguir siendo:
+
+- modular
+- fácil de extender
+- fácil de mantener
+- consistente
+
+Toda decisión debe alinearse con los principios descritos en **ARCHITECTURE.md**.
