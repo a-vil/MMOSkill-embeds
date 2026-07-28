@@ -60,7 +60,7 @@ Discord Embeds
 
 For internal design details see:
 
-> 📖 **ARCHITECTURE.md**
+> 📖 **[ARCHITECTURE.md](./ARCHITECTURE.md)**
 
 ## Implemented branches
 

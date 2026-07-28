@@ -60,7 +60,7 @@ Discord Embeds
 
 Para conocer el diseño interno consulta:
 
-> 📖 **ARCHITECTURE.md**
+> 📖 **[ARCHITECTURE.md](./ARCHITECTURE.md)**
 
 ## Ramas implementadas
 
