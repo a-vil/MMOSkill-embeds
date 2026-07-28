@@ -73,15 +73,15 @@ Preferir modificaciones pequeñas antes que grandes refactorizaciones.
 
 ---
 
-## Traducción
+## Localización
 
-Al trabajar en traducciones, **vuelve a leer** `.opencode/skills/translate-en-es/STYLE_GUIDE.md`,
+Al trabajar en localización, **vuelve a leer** `.opencode/skills/translate-en-es/STYLE_GUIDE.md`,
 `.opencode/skills/translate-en-es/SKILL.md`,
-`data/words_custom.txt` y `data/words_excluded.txt` por completo antes de traducir.
+`data/words_custom.txt` y `data/words_excluded.txt` por completo antes de comenzar.
 
 - Las traducciones personalizadas (`words_custom.txt`) tienen prioridad (incluso sobre palabras excluidas).
-- Las palabras excluidas (`words_excluded.txt`) nunca se traducen (a menos que tengan una personalizada).
-- El resto usa traducción asistida por IA.
+- Las palabras excluidas (`words_excluded.txt`) nunca se localizan (a menos que tengan una personalizada).
+- El resto usa localización asistida por IA.
 - Las variables `{placeholder}` en details deben preservarse exactamente.
 - Después de editar `words_custom.txt` o `words_excluded.txt`, ejecutar `sort_lists.py` para mantenerlos ordenados.
 
@@ -113,10 +113,10 @@ No:
 
 Seguir este orden consultando [REQUIREMENTS.md](./REQUIREMENTS.md) para los contratos exactos:
 
-1. **Data** — crear `data/es_nombre.py` con `SkillText` de cada skill
-2. **Embeds** — crear `embeds/nombre.py` con `SKILL_KEYS`, `TIERS`, `ALIASES`, builders
-3. **Storage** — crear `storage/nombre_index.py` con persistencia JSON
-4. **Branch** — crear `branches/nombre.py` con `BranchConfig` + `register(bot)`
+1. **Data** — usar la skill `translate-en-es` para generar `data/es_nombre.py` con `SkillText` de cada skill
+2. **Embeds** — crear `embeds/nombre.py` con `SKILL_KEYS`, `TIERS`, `ALIASES`, builders (puedes apoyarte en la skill `embed-integration`)
+3. **Storage** — crear `storage/nombre_index.py` con persistencia JSON (ídem)
+4. **Branch** — crear `branches/nombre.py` con `BranchConfig` + `register(bot)` (ídem)
 5. **Registro** — añadir import y `register(bot)` en `branches/__init__.py`
 6. **Assets** — crear `imgs/nombre/` con imágenes de cada skill
 7. **Entorno** — añadir emoji vars al `.env.example`

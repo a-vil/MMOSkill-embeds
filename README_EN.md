@@ -2,52 +2,60 @@
 
 # 🎯 MMOSkill-embeds
 
-> **Content localization and publishing pipeline for MMO skills.**
->
-> MMOSkill-embeds automates the transformation of plain text into structured, localized content, automatically generating Discord embeds through a modular pipeline.
-
-## What it does
-
-This project solves a repetitive workflow:
-
-- translating skills
-- keeping terminology consistent
-- preserving game vocabulary
-- generating embeds
-- maintaining indexes
-
-The entire flow is automated through a processing pipeline.
+AI-assisted localization toolkit for documenting MMO skills on Discord.
+Transforms English text into a structured data model (SkillText) in Spanish through a structured workflow, and integrates it into a bot that publishes the results as embeds.
+Source text (EN) → data/*.txt → translate-en-es → SkillText → embed-integration → Bot → Discord
 
 ## Features
 
-- 🌐 English → Spanish localization pipeline
-- 🤖 AI-assisted translation workflow
-- 📚 Custom dictionaries
-- 🚫 Technical term exclusions
-- 🧩 Domain model (`SkillText`) decoupled from Discord
-- 🏗 Modular, decoupled architecture
-- 🔗 Automatic indexes with clickable navigation
-- 🌍 Multi-server compatible
+- 🌐 EN → ES localization via the translate-en-es skill with style guide
+- 📚 Custom dictionaries for forced term mappings
+- 🚫 Exclusions to preserve game vocabulary in English
+- 🧩 Domain model (SkillText) — structured data per skill
+- 🔧 Bot integration via the embed-integration skill
+- 🏗 Modular structure: each skill branch is independent
+- 🔗 Automatic indexes on Discord with clickable navigation
 - 😀 Custom emoji support with text fallback
-- ⚡ Alias system for quick access
+- ⚡ Aliases for quick access to any skill
+- 🌍 Multi-server compatible
 - 🔄 Easy to extend with new skill branches
+
+## Workflow
+
+1. Source text — Write the skills in English inside a text file under data/.
+2. AI-assisted localization — Use the translate-en-es skill to transform the text into Spanish:
+- Applies custom dictionaries and excluded terms
+- Preserves game vocabulary and skill names in English
+- Keeps {placeholder} variables intact
+- Follows style rules for natural, non-literal output
+- The result is data/es_*.py with SkillText: title, description, and details per skill
+3. AI-assisted integration — Use the embed-integration skill to connect that SkillText into the bot:
+- Generates embed builders, storage, and command registration
+- _base.py handles repetitive logic; you only configure
+4. Execution — The bot listens for commands (!skshot, !skmagic, etc.) and replies with embeds from the integrated data.
 
 ## Architecture
 
 ```text
-Source text
+Source text (EN)
       │
       ▼
-Localization pipeline
+data/*.txt
       │
       ▼
-SkillText
+translate-en-es  (AI skill)
       │
       ▼
-Embed Builder
+SkillText  (title, description, details in Spanish)
       │
       ▼
-Discord
+embed-integration  (AI skill)
+      │
+      ▼
+Bot  (commands !skshot, !skmagic, ...)
+      │
+      ▼
+Discord Embeds
 ```
 
 For internal design details see:
@@ -55,6 +63,8 @@ For internal design details see:
 > 📖 **ARCHITECTURE.md**
 
 ## Implemented branches
+
+The source text included in this repository corresponds to **Toram Online**, the game used to develop and test the project. These branches serve as a reference and functional base for adapting to other MMOs.
 
 | Branch | Skills | Command |
 |--------|-------:|---------|
@@ -105,34 +115,15 @@ python bot.py
 
 ## Roadmap
 
-### Branches
-- [x] Shot
-- [x] Magic
-- [x] Blade
-- [x] Martial
-- [x] Halberd
-- [ ] Katana
-- [ ] Dual Sword
-
-### Project
+- [x] Pipeline as conversational flow (assisted by AI agent)
+- [ ] Pipeline as standalone CLI (without dependency on the agent)
 - [ ] Unit tests
 - [ ] CI/CD
 - [ ] Docker
-- [ ] CLI
 
-### Exporters
-- [ ] JSON
-- [ ] Markdown
-- [ ] HTML
+## Credits
 
-## Contributing
-
-Contributions are welcome.
-
-Before making significant changes, review:
-
-- [ARCHITECTURE.md](./ARCHITECTURE.md)
-- [AGENTS.md](./AGENTS.md)
+The source text in English and the images used in the embeds come from the Discord server **[Phantom's Library](https://discord.gg/fnhkyz5B4E)**. This repository only contains the transformation and structuring of that content; the original data is not my own work.
 
 ## License
 
