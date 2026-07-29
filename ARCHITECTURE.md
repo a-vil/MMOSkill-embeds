@@ -7,7 +7,7 @@ Este documento describe la arquitectura del proyecto y sirve como la **única fu
 ## Visión General
 
 Sistema modular de gestión y entrega de contenido para habilidades de un MMO.
-Pipeline completo: fuente en inglés → traducción al español → embeds de Discord.
+Flujo asistido por IA: fuente en inglés → localización al español → embeds de Discord.
 
 ---
 
@@ -24,31 +24,38 @@ Nunca se generan embeds directamente desde texto plano.
 Cada módulo tiene una responsabilidad específica.
 
 ```
-Input
+Input                       ← data/*.txt (fuente EN)
   │
   ▼
-Localization
-  │
-  ▼
+Localization                ← translate-en-es (skill IA)
+  │                           + words_custom.txt / words_excluded.txt
+  ▼                           + STYLE_GUIDE.md
 Normalization
   │
   ▼
-Domain Model
+Domain Model                ← SkillText (datos estructurados)
   │
   ▼
-Presentation
+Presentation                ← embed-integration (skill IA)
+                                → embeds/*.py → branches/*.py → bot.py
 ```
 
-### Deterministic Localization
+### Localización Determinista
 
-La IA únicamente asiste la traducción.
+La skill translate-en-es genera el SkillText en dos fases:
 
-El resultado final siempre está gobernado por:
+**Fase 1 — Restricciones durante la generación:**
+- Diccionarios personalizados (words_custom.txt) — prioridad máxima
+- Términos excluidos (words_excluded.txt) — se preservan en inglés
+- Guía de estilo (STYLE_GUIDE.md) — naturalidad, terminología, formato
 
-- diccionarios personalizados
-- exclusiones de términos
-- reglas de terminología
-- normalización
+**Fase 2 — Verificación post-generación:**
+- Evaluación contra el checklist completo de STYLE_GUIDE.md (§1–§8)
+- Confirmación de que palabras excluidas no se localizaron
+- Confirmación de que traducciones custom se aplicaron correctamente
+- Documentación de hallazgos para corrección manual
+
+sort_lists.py mantiene los diccionarios ordenados alfabéticamente tras cada edición.
 
 ### Modular Branches
 
@@ -61,6 +68,15 @@ data/*.txt (EN) → data/es_*.py (SkillText ES) → embeds/*.py (builder) → br
 Además del módulo `branches/X.py`, cada rama debe registrarse en `branches/__init__.py` — importar el módulo y añadir `nueva_rama.register(bot)` en `register_all()`.
 
 Para los contratos exactos que debe cumplir cada módulo, consultar [REQUIREMENTS.md](./REQUIREMENTS.md).
+
+### AI Skills
+
+El proceso de creación de ramas se apoya en dos skills de opencode:
+
+- **translate-en-es** — genera `data/es_*.py` desde texto fuente, aplicando diccionarios, exclusiones y guía de estilo con verificación post-generación
+- **embed-integration** — genera los módulos de embeds, storage y branch siguiendo el patrón de las ramas existentes
+
+Estas skills no forman parte del runtime del bot; asisten durante el desarrollo.
 
 ---
 
@@ -109,17 +125,18 @@ Los builders resuelven emojis, imágenes y placeholders, devolviendo `list[disco
 
 ---
 
-## Flujo de Traducción
+## Flujo de Localización
 
 1. `data/skill.txt` — fuente en inglés
-2. `words_excluded.txt` — palabras que no se traducen
-3. `words_custom.txt` — traducciones forzadas (prioridad máxima)
-4. `data/es_skill.py` — `SkillText` en español (generado con asistencia de IA)
+2. `words_excluded.txt` — palabras que no se localizan
+3. `words_custom.txt` — traducciones personalizadas (prioridad máxima)
+4. `data/es_skill.py` — `SkillText` en español (generado por la skill translate-en-es)
 5. `sort_lists.py` — mantiene los diccionarios ordenados alfabéticamente
 
 Reglas:
-- Custom > Excluidas > Traducción IA
+- Custom > Excluidas > Localización IA
 - Las variables `{placeholder}` se preservan
+- La skill translate-en-es verifica el output contra STYLE_GUIDE.md post-generación
 
 ---
 
@@ -195,7 +212,7 @@ Porque desacopla completamente:
 - almacenamiento
 - presentación
 
-Esto permite reutilizar la información para otros exportadores sin modificar el pipeline de localización.
+Esto permite reutilizar la información para otros exportadores sin modificar el flujo de localización.
 
 ### ¿Por qué no traducir directamente?
 
@@ -227,7 +244,7 @@ El modelo podría exportarse a:
 - Wiki
 - API REST
 
-Sin modificar el pipeline de localización.
+Sin modificar el flujo de localización.
 
 ---
 

@@ -1,6 +1,6 @@
 # STYLE_GUIDE.md
 
-Esta guía contiene los estándares técnicos y gramaticales para las traducciones. El sistema de traducción debe consultar este documento para garantizar la consistencia y naturalidad de los embeds.
+Esta guía contiene los estándares técnicos y gramaticales para las localizaciones. El sistema de localización debe consultar este documento para garantizar la consistencia y naturalidad de los embeds.
 
 ## 1. Terminología Oficial
 - **Magic Tree** → **Magic Skills**
@@ -76,7 +76,7 @@ Prioriza siempre la fluidez del lenguaje jugador sobre la literalidad.
 - **Ailments:** Usa corchetes para estados de alteración: `[Flinch]`, `[Bleed]`.
 
 ## 4. Ejemplos de referencia (Estándar de calidad)
-| Original | Traducción mejorada |
+| Original | Localización mejorada |
 |----------|----------------------|
 | "Using aoe magic... beam stack is used" | "Al usar magia AoE (como Burst, Storm, Wall, etc.) que golpee a varios objetivos sin matarlos, se consumirá un beam stack..." |
 | "has an innate Motion Speed penalty" | "tiene una reducción innata de Motion Speed" |

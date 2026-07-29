@@ -1,6 +1,6 @@
 ---
 name: embed-integration
-description: Crea los 4 archivos necesarios para integrar un nuevo tree de skills (embeds module, storage, bot.py, .env.example) siguiendo el patrón de shot, magic y blade.
+description: Crea los 5 archivos necesarios para integrar un nuevo tree de skills (embeds, storage, branch, __init__, .env.example) siguiendo el patrón de shot, magic y blade.
 ---
 
 # Integración de nuevo tree de skills
@@ -8,7 +8,7 @@ description: Crea los 4 archivos necesarios para integrar un nuevo tree de skill
 ## Flujo completo
 
 ```
-data/es_<tree>.py  →  embeds/<tree>.py  →  storage/<tree>_index.py  →  bot.py  +  .env.example
+data/es_<tree>.py  →  embeds/<tree>.py  →  storage/<tree>_index.py  →  branches/<tree>.py  →  branches/__init__.py  →  bot.py  +  .env.example
 ```
 
 ## 1. storage/<tree>_index.py
@@ -287,142 +287,133 @@ def get_skills_index_embed(guild_id: int, skills: dict) -> discord.Embed:
     return embed
 ```
 
-## 3. bot.py — Integración
+## 3. branches/<tree>.py
 
-### Imports (3 bloques)
+> La lógica de comandos (list, index, nuke, scan, etc.) ya está implementada en `_base.py`.
+> El branch solo configura los parámetros específicos del tree.
+
+### Imports
 
 ```python
 from embeds.<tree> import (
-    SKILL_KEYS as <TREE>_SKILL_KEYS,
-    TIERS as <TREE>_TIERS,
-    SKILL_TIER as <TREE>_SKILL_TIER,
-    get_skill_embeds as get_<tree>_skill_embeds,
-    get_tier_embeds as get_<tree>_tier_embeds,
-    get_tier_skill_keys as get_<tree>_tier_skill_keys,
-    get_skills_index_embed as get_<tree>_skills_index_embed,
-    resolve_skill as resolve_<tree>_skill,
+    SKILL_KEYS,
+    TIERS,
+    SKILL_TIER,
+    get_skill_embeds,
+    get_tier_skill_keys,
+    get_skills_index_embed,
+    resolve_skill,
 )
 from storage.<tree>_index import (
-    get_guild_data as get_<tree>_guild_data,
-    save_index_message as save_<tree>_index_message,
-    save_skill as save_<tree>_skill,
-    load_index as load_<tree>_index,
-    save_index as save_<tree>_index,
+    get_guild_data,
+    save_index_message,
+    save_skill,
+    load_index,
+    save_index,
 )
+from ._base import BranchConfig, BranchHandlers
 ```
 
 ### TITLE_TO_KEY
 
 ```python
-TITLE_TO_KEY_<TREE>: dict[str, str] = {st.title: sk for sk, st in <TREE>_SKILL_KEYS.items()}
+TITLE_TO_KEY: dict[str, str] = {st.title: sk for sk, st in SKILL_KEYS.items()}
 ```
 
-### Helper functions
+### HELP
 
 ```python
-def _tier_from_<tree>_key(skill_key: str) -> str:
-    return <TREE>_SKILL_TIER.get(skill_key, "T?")
-
-async def _update_index_<tree>(ctx: commands.Context, guild: discord.Guild) -> None:
-    guild_data = get_<tree>_guild_data(guild.id)
-    if not guild_data["skills"]:
-        return
-    if guild_data["index"]:
-        try:
-            channel = guild.get_channel(guild_data["index"]["channel_id"])
-            if isinstance(channel, discord.TextChannel):
-                index_msg = await channel.fetch_message(guild_data["index"]["message_id"])
-                index_embed = get_<tree>_skills_index_embed(guild.id, guild_data["skills"])
-                await index_msg.edit(embed=index_embed)
-                return
-        except discord.NotFound:
-            pass
-    index_embed = get_<tree>_skills_index_embed(guild.id, guild_data["skills"])
-    index_msg = await ctx.send(embed=index_embed)
-    save_<tree>_index_message(guild.id, index_msg.channel.id, index_msg.id)
+HELP = [
+    f"**!sk<tree> <skill>** — Muestra una skill",
+    f"**!sk<tree> <skill> save** — Muestra y registra en el índice",
+    f"**!sk<tree> <tier>** — Muestra un tier completo (t1-t5)",
+    f"**!sk<tree> all** — Muestra todas las skills",
+    f"**!sk<tree> list** — Lista de skills disponibles",
+    f"**!sk<tree> index** — Muestra el índice actual",
+    f"**!sk<tree> nuke** — Elimina mensajes del bot e índice en este canal",
+    f"**!sk<tree> scan** — Escanea el canal y registra skills ya enviadas",
+]
 ```
 
-### Comando
+### BranchConfig
+
+5 tiers (estándar):
 
 ```python
-@bot.command(name="sk<tree>")
-async def sk<tree>(ctx: commands.Context, *args: str) -> None:
-    guild = ctx.guild
-    if guild is None:
-        await ctx.send("Este comando solo puede usarse en un servidor.")
-        return
-
-    if not args:
-        await _send_help_<tree>(ctx)
-        return
-
-    raw = " ".join(args)
-    save_flag = raw.lower().endswith(" save")
-    if save_flag:
-        raw = raw[:-5].strip()
-
-    cmd = raw.strip().lower()
-
-    if cmd in ("list",):
-        await _send_list_<tree>(ctx)
-        return
-
-    if cmd in ("index",):
-        await _send_index_<tree>(ctx, guild)
-        return
-
-    if cmd in ("nuke",):
-        await _nuke_channel_<tree>(ctx, guild)
-        return
-
-    if cmd in ("scan",):
-        await _scan_channel_<tree>(ctx, guild)
-        return
-
-    if cmd in <TREE>_TIERS:
-        await _send_tier_<tree>(ctx, guild, cmd, save=save_flag)
-        return
-
-    if cmd == "all":
-        await _send_all_<tree>(ctx, guild)
-        return
-
-    skill_key = resolve_<tree>_skill(cmd)
-    if skill_key is None:
-        await ctx.send(
-            f'Skill no encontrada: "{raw}". Usa `!sk<tree> list` para ver las disponibles.'
-        )
-        return
-
-    embeds, extra_embeds, files = get_<tree>_skill_embeds(skill_key)
-    msg = await ctx.send(embeds=embeds, files=files)
-    for extra in extra_embeds:
-        await ctx.send(embeds=[extra])
-
-    if save_flag:
-        skill = <TREE>_SKILL_KEYS[skill_key]
-        save_<tree>_skill(
-            guild.id,
-            skill_key,
-            skill.title,
-            _tier_from_<tree>_key(skill_key),
-            msg.channel.id,
-            msg.id,
-        )
-        await _update_index_<tree>(ctx, guild)
+config = BranchConfig(
+    command_name="sk<tree>",
+    display_name="<Tree>",
+    skill_keys=SKILL_KEYS,
+    tiers=TIERS,
+    skill_tier=SKILL_TIER,
+    title_to_key=TITLE_TO_KEY,
+    tier_order={"T1": 0, "T2": 1, "T3": 2, "T4": 3, "T5": 4},
+    tier_list=("t1", "t2", "t3", "t4", "t5"),
+    get_skill_embeds=get_skill_embeds,
+    get_tier_skill_keys=get_tier_skill_keys,
+    get_skills_index_embed=get_skills_index_embed,
+    resolve_skill=resolve_skill,
+    get_guild_data=get_guild_data,
+    save_skill=save_skill,
+    save_index_message=save_index_message,
+    load_index=load_index,
+    save_index=save_index,
+    help_lines=HELP,
+)
 ```
 
-### Sub-funciones necesarias
+Con T0 (skills especiales como `ELEMENTAL_NAMES`):
 
-- `_send_help_<tree>` — mensaje de ayuda
-- `_send_list_<tree>` — lista de skills por tier
-- `_send_index_<tree>` — muestra/actualiza índice
-- `_send_tier_<tree>` — envía un tier completo (con save opcional)
-- `_send_all_<tree>` — envía todas las skills y las guarda
-- `_nuke_channel_<tree>` — elimina mensajes + índice en el canal (usa `TITLE_TO_KEY_<TREE>` para identificar skills por título)
-- `_scan_channel_<tree>` — escanea el canal y registra skills existentes
+```python
+config = BranchConfig(
+    ...
+    tier_order={"T0": 5, "T1": 0, "T2": 1, "T3": 2, "T4": 3, "T5": 4},
+    tier_list=("t0", "t1", "t2", "t3", "t4", "t5"),
+    ...
+)
+```
 
-## 4. .env.example
+### Registro
+
+```python
+handlers = BranchHandlers(config)
+
+
+def register(bot):
+    handlers.register(bot)
+```
+
+### Opcionales de BranchConfig
+
+| Campo | Uso | Ejemplo |
+|-------|-----|---------|
+| `nuke_method` | `"purge"` para limpiar por autor, `"title_scan"` (default) por título | `nuke_method="purge"` |
+| `resolve_embeds` | Callable para post-procesar embeds (ej: resolver links) | `resolve_embeds=my_func` |
+| `send_all_direct` | `True` si `resolve_embeds` necesita aplicarse en `all` | `send_all_direct=True` |
+| `display_name` | Nombre mostrado en listas de ayuda | `display_name="Shot"` |
+
+Los mensajes (`index_updated_msg`, `index_created_msg`, etc.) tienen defaults en `BranchConfig`. Solo se sobrescriben si se necesita texto personalizado.
+
+## 4. branches/__init__.py
+
+Añadir el import y el registro en `register_all()`:
+
+```python
+from . import shot, magic, sblade, martial, halberd, <tree>
+
+
+def register_all(bot):
+    shot.register(bot)
+    magic.register(bot)
+    sblade.register(bot)
+    martial.register(bot)
+    halberd.register(bot)
+    <tree>.register(bot)
+```
+
+> `bot.py` ya importa `register_all` de `branches` y lo ejecuta. No necesita modificaciones.
+
+## 5. .env.example
 
 Agregar al final del archivo:
 
@@ -436,7 +427,7 @@ SKILL_2_EMOJI=
 # ... una por skill
 ```
 
-## 5. Verificación: Límite de descripciones
+## 6. Verificación: Límite de descripciones
 
 Discord limita `description` de un embed a **4096 caracteres**. El build
 actual crea un embed de overview con `skill.description` y un embed de
@@ -477,5 +468,8 @@ y añadir el contenido extra al diccionario `SKILL_EXTRA: dict[str, str]` en
 | `embeds/magic.py` | Referencia para OPCIONALES (extras, T0, diagrams, emojis en fmt) |
 | `embeds/shot.py` | Alternativa simple — sin emojis en fmt |
 | `storage/shot_index.py` | Template de storage (cambiar solo nombre) |
-| `bot.py` (bloque blade) | Template de integración |
+| `branches/shot.py` | Template de branch (5 tiers, purge) |
+| `branches/magic.py` | Template de branch con T0 |
+| `branches/halberd.py` | Template de branch con resolve_embeds |
+| `branches/_base.py` | Lógica compartida de comandos |
 | `.env.example` | Template de emoji vars |

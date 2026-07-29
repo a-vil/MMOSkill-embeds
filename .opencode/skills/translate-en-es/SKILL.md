@@ -1,32 +1,33 @@
 ---
 name: translate-en-es
-description: Traduce archivos .txt de inglés a español. Se activa con "traduce". Lee words_excluded.txt y words_custom.txt de data/. Genera archivos .py con SkillText.
+description: Localiza archivos .txt de inglés a español. Se activa con "traduce", "localiza", "transforma" o "convierte". Lee words_excluded.txt y words_custom.txt de data/. Genera archivos .py con SkillText.
 ---
 
-# Traducción EN→ES
+# Localización EN→ES
 
 > **⚠️ Alcance de esta guía:** Cuando se haga referencia a "la guía y skill
-> de traducción", se entienden incluidos **los 4 archivos**:
+> de localización", se entienden incluidos **los 4 archivos**:
 > - `SKILL.md` (flujo, reglas, checklist)
 > - `STYLE_GUIDE.md` (reglas de estilo detalladas)
 > - `words_custom.txt` (traducciones personalizadas)
-> - `words_excluded.txt` (palabras no traducibles)
+> - `words_excluded.txt` (palabras excluidas)
 >
-> **⚠️ Antes de traducir o responder**, releer los 4 archivos completos.
+> **⚠️ Antes de localizar o responder**, releer los 4 archivos completos.
 > No responder desde la memoria o intuición.
 
 ## Uso
 
 ```text
-> traduce <archivo>                    # Crea es_<archivo> como .py nuevo
-> traduce <archivo> <archivo_salida>   # Agrega al final del archivo existente
+> traduce / localiza / transforma / convierte <archivo>         # Crea es_<archivo> como .py nuevo
+> traduce / localiza / transforma / convierte <archivo> <salida>  # Agrega al final del archivo existente
 ```
 
 ## Ejemplos
 
 ```text
 > traduce data/sshot.txt                      → Crea data/es_sshot.py
-> traduce data/smartial.md                    → Crea data/es_smartial.py
+> localiza data/smartial.md                   → Crea data/es_smartial.py
+> transforma data/sshot.txt                   → Crea data/es_sshot.py
 ```
 
 ## Flujo
@@ -42,10 +43,10 @@ description: Traduce archivos .txt de inglés a español. Se activa con "traduce
    - Archivos `.md`: `#### **` con markdown (ej: `#### **Smash**`)
 6. Para cada skill:
    - Aplicar traducciones personalizadas (custom > excluidas)
-   - Traducir usando las reglas de naturalidad de `STYLE_GUIDE.md`
-   - Mantener palabras excluidas sin traducir
+   - Localizar usando las reglas de naturalidad de `STYLE_GUIDE.md`
+   - Mantener palabras excluidas sin localizar
 7. Generar archivo .py con formato SkillText
-8. Evaluar la traducción — verificar TODAS las reglas de `STYLE_GUIDE.md`:
+8. Evaluar la localización — verificar TODAS las reglas de `STYLE_GUIDE.md`:
    - **§1 Terminología Oficial:** Miss, Guard, Evasion, Graze, Anticipate,
      Absolute Critical, etc. mantenidos en inglés.
    - **§2 Reglas de Naturalidad:** Verbos conjugados → sustantivos mecánicos
@@ -60,7 +61,7 @@ description: Traduce archivos .txt de inglés a español. Se activa con "traduce
    - **§7 Términos Técnicos en Inglés:** Género y artículo correctos.
    - **§8 Desambiguación Stat vs Descriptivo:** Critical Damage (stat) vs
      daño crítico (descriptivo), Absolute Critical (estado).
-   - **words_excluded.txt:** Ninguna palabra excluida traducida al español.
+   - **words_excluded.txt:** Ninguna palabra excluida localizada al español.
    - **words_custom.txt:** Todas las traducciones custom aplicadas
      correctamente.
     - **Placeholders `{weapon}`:** Solo en líneas de restricción de arma, no
@@ -71,15 +72,15 @@ description: Traduce archivos .txt de inglés a español. Se activa con "traduce
       inglés con mayúscula inicial. NO traducir a "principal"/"secundaria".
       Ej: "Main Katana", "Sub Knuckle", "Main Magic Device Only".
    - Documentar los hallazgos para el paso siguiente.
-9. Informe post-traducción — documentar hallazgos para corrección manual y
+9. Informe post-localización — documentar hallazgos para corrección manual y
    mantener consistencia.
 
-## Reglas de traducción
+## Reglas de localización
 
 ```text
 1. Custom translations → se aplican PRIMERO (aunque la palabra esté excluida)
-2. Excluded words → NO se traducen (solo si NO tienen traducción custom)
-3. Texto restante → se traduce con IA de forma natural
+2. Excluded words → NO se localizan (solo si NO tienen traducción custom)
+3. Texto restante → se localiza con IA de forma natural
 4. Palabras excluidas en contexto → la palabra excluida se mantiene, pero las palabras a su alrededor se traducen si no están en excluded/custom
 ```
 
@@ -139,11 +140,11 @@ Ambos archivos (excluidas y custom) usan las mismas reglas:
 
 ## Archivos de datos
 
-- `data/words_excluded.txt` — palabras que no se traducen
+- `data/words_excluded.txt` — palabras excluidas (no se localizan)
 - `data/words_custom.txt` — traducciones específicas con variables {n}
 
 ## Guía de Estilo
 
-Para asegurar la calidad y naturalidad del texto final, el bot DEBE consultar siempre `.opencode/skills/translate-en-es/STYLE_GUIDE.md` durante el paso de traducción.
+Para asegurar la calidad y naturalidad del texto final, el bot DEBE consultar siempre `.opencode/skills/translate-en-es/STYLE_GUIDE.md` durante el proceso de localización.
 
 **Regla de Oro:** "Si una estructura suena robótica o poco natural, prefiere la fluidez del jugador (ej: uso de activos, oraciones breves) sobre la literalidad del original."
