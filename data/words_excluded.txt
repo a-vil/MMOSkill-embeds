@@ -69,6 +69,7 @@ Dagger
 Dark
 Dauntless
 Dazzled
+Deadly Poison
 Decoy
 Decoy Auto
 Decoy Shot
@@ -247,6 +248,7 @@ Twin Storm
 Ultimate
 Unsheathe
 Vanquisher
+Venom Stack
 Vulcan
 Water
 Weaken

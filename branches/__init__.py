@@ -1,4 +1,4 @@
-from . import shot, magic, sblade, martial, halberd
+from . import shot, magic, sblade, martial, halberd, assassin
 
 
 def register_all(bot):
@@ -7,3 +7,4 @@ def register_all(bot):
     sblade.register(bot)
     martial.register(bot)
     halberd.register(bot)
+    assassin.register(bot)
