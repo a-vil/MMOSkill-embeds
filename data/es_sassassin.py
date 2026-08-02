@@ -27,9 +27,9 @@ ASSASSIN_STAB = SkillText(
         "**Efecto de la habilidad:**\n"
         "*  **Base Skill Constant:** 30 * Skill Level\n"
         "*  El **Base Skill Multiplier** varía según la dirección de uso:\n"
-        "  [315°-40°]Frente: 1 + 0.01 * Skill Level\n"
-        "  [225°-315°,45°-135°]Lado: 1.05 + 0.03 * Skill Level\n"
-        "  [225°-135°]Atrás: 1.1 + 0.09 * Skill Level\n\n"
+        "  * [315°-40°]Frente: 1 + 0.01 * Skill Level\n"
+        "  * [225°-315°,45°-135°]Lado: 1.05 + 0.03 * Skill Level\n"
+        "  * [225°-135°]Atrás: 1.1 + 0.09 * Skill Level\n\n"
         "**Dagger/Scroll bonus:** Skill Multiplier +0.5 (Frente), +1 (Lado), +3 (Atrás)\n\n"
         "{image}"
     ),

@@ -15,6 +15,8 @@ from storage.magic_index import (
     load_index,
     save_index,
 )
+from discord.ext import commands
+
 from ._base import BranchConfig, BranchHandlers
 
 
@@ -62,5 +64,9 @@ config = BranchConfig(
 handlers = BranchHandlers(config)
 
 
+async def branch_handle(ctx: commands.Context, *args: str) -> None:
+    await handlers.handle_command(ctx, *args)
+
+
 def register(bot):
-    handlers.register(bot)
+    bot.command(name=config.command_name)(branch_handle)
