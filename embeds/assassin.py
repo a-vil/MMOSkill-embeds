@@ -111,7 +111,7 @@ TIER_ORDER = {"T1": 0, "T2": 1, "T3": 2, "T4": 3, "T5": 4}
 SKILL_IMAGES: dict[str, str] = {}
 
 SKILL_DIAGRAMS: dict[str, str] = {
-    "assassinstab": "image.png",
+    "assassinstab": "assass.png",
 }
 
 

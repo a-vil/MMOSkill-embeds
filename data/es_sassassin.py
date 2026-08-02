@@ -163,7 +163,10 @@ SHADOW_WALK = SkillText(
 
 VENOM_INJECTION = SkillText(
     title="Venom Injection",
-    description="**Descripción del juego:** *\"Técnica de asesinato que aplica veneno a tu arma. Consume tu HP para obtener la chance de infligir poison durante los ataques normales. La chance depende de las stats de la daga, el ninjutsu scroll y cambia según Critical o Graze.\"*",
+    description=(
+        "**Descripción del juego:** *\"Técnica de asesinato que aplica veneno a tu arma. Consume tu HP para obtener la chance de infligir poison durante los ataques normales. La chance depende de las stats de la daga, el ninjutsu scroll y cambia según Critical o Graze.\"*\n"
+        "No puedes usar esta habilidad si no tienes suficiente HP."
+    ),
     details=(
         "**Habilidad Tier 1;** Solo Dagger/Scroll/BH\n"
         "**Coste MP:** 100\n\n"
@@ -182,7 +185,6 @@ VENOM_INJECTION = SkillText(
         "**Resistencia a Ailment:** Ninguna\n\n"
         "*Nota sobre la chance de ailment: Calcula la chance base de ailment primero, luego redondea hacia abajo… luego multiplica por el bonus OHS/HB según Skill Level (aunque no está claro si este redondeo ocurre \"después\" o \"antes\" de los cambios por crit/graze, pero muy probablemente \"después\").\n"
         "*Otra nota sobre BH: la chance de BH sub es exactamente la misma que la chance de BH main solamente, lo que significa que como BH sub, el arma secundaria no aumenta la chance de poison en absoluto… es como si el arma secundaria se ignorara debido a cambios en [main bh]. Por eso dice \"Cambia la chance base de ail\" en el bonus BH.\n\n"
-        "No puedes usar esta habilidad si no tienes suficiente HP."
     ),
 )
 
@@ -208,7 +210,10 @@ CORROSIVE_POISON = SkillText(
 
 VENOM_THIEF = SkillText(
     title="Venom Thief",
-    description="**Descripción del juego:** *\"Absorbe el poison corrosivo del objetivo para restaurar tu propio HP y eliminar el estado de poison. Si es poison mejorado, también se restaurará MP. Si no estás envenenado, obtendrás un efecto que te previene de ser envenenado.\"*",
+    description=(
+        "**Descripción del juego:** *\"Absorbe el poison corrosivo del objetivo para restaurar tu propio HP y eliminar el estado de poison. Si es poison mejorado, también se restaurará MP. Si no estás envenenado, obtendrás un efecto que te previene de ser envenenado.\"*\n"
+        "Nota: Usar Recovery de Support Tree (ej. lv 1: 12s) cuando ya tienes un efecto Recovery de esta habilidad (ej. +30s con Poison+2), resultará en obtener 12s de Recovery lv 1 debido a que el nuevo Recovery sobrescribe el anterior. En cambio, usar esta habilidad para obtener Recovery cuando ya tienes Recovery (Support Tree) no sobrescribe ese Recovery (Support Tree), independientemente del nivel de habilidad."
+    ),
     details=(
         "**Habilidad Tier 3;** Solo Dagger/Scroll/BH\n"
         "**Coste MP:** 200\n"
@@ -230,7 +235,6 @@ VENOM_THIEF = SkillText(
         "  Si no estás envenenado, obtienes efecto \"Recovery (de Support Tree)\" que anula ailments durante 30 segundos\n"
         "  Si ya has aprendido Death Reception, obtienes (Deadly Poison 2 stack)\n\n"
         "No puedes acumular Deadly Poison anterior con un nuevo Deadly Poison, ya que el nuevo stack sobrescribirá el anterior.\n\n"
-        "Nota: Usar Recovery de Support Tree (ej. lv 1: 12s) cuando ya tienes un efecto Recovery de esta habilidad (ej. +30s con Poison+2), resultará en obtener 12s de Recovery lv 1 debido a que el nuevo Recovery sobrescribe el anterior. En cambio, usar esta habilidad para obtener Recovery cuando ya tienes Recovery (Support Tree) no sobrescribe ese Recovery (Support Tree), independientemente del nivel de habilidad."
     ),
 )
 
@@ -276,7 +280,10 @@ DEATH_RECEPTION = SkillText(
 
 SECRET_ASSASSIN = SkillText(
     title="Secret Assassin",
-    description="**Descripción del juego:** *\"Profundiza tu comprensión de las técnicas de asesinato. Aumenta el poder de las habilidades \"Assassin Stab\" y \"Arcane Strike\".\"*",
+    description=(
+        "**Descripción del juego:** *\"Profundiza tu comprensión de las técnicas de asesinato. Aumenta el poder de las habilidades \"Assassin Stab\" y \"Arcane Strike\".\"*\n"
+        "**Dagger/Ninjutsu Scroll bonus:** Aumenta aún más el poder de Assassin Stab."
+    ),
     details=(
         "**Habilidad Tier 5;** [Pasivo] Sin Restricciones {all}\n"
         "**Efecto Pasivo:**\n"
@@ -292,13 +299,17 @@ SECRET_ASSASSIN = SkillText(
         "  > Assassin Stab Skill Multiplier + 2\n\n"
         "Este bonus de multiplicador se aplica primero junto con el bonus de multi de Sicarius, antes de multiplicarse por el multiplicador de aumento de daño de Backstep y Foresight. Así puedes alcanzar hasta 30 de multiplicador con esta habilidad.\n\n"
         "*Posible bug: el efecto registlet de Assassin Stab no funciona si tienes esta habilidad Secret Assassin… [el registlet es sobrescrito por esta habilidad por alguna razón].\n\n"
-        "**Dagger/Ninjutsu Scroll bonus:** Aumenta aún más el poder de Assassin Stab."
     ),
 )
 
 ASSAULT_CHASE = SkillText(
     title="Assault Chase",
-    description="**Descripción del juego:** *\"Restaura la Evasion en un 50% si se obtiene un nuevo buff y disminuye el consumo de Evasion hacia (o alrededor) del objetivo del ataque durante 180 segundos. El efecto del buff terminará cuando el contador de Evasion restante llegue a 0.\"*",
+    description=(
+        "**Descripción del juego:** *\"Restaura la Evasion en un 50% si se obtiene un nuevo buff y disminuye el consumo de Evasion hacia (o alrededor) del objetivo del ataque durante 180 segundos. El efecto del buff terminará cuando el contador de Evasion restante llegue a 0.\"*\n"
+        "* Un Dodge exitoso con Evasion mientras el buff está activo añade un efecto que aumenta el poder de ataque cuerpo a cuerpo.\n"
+        "* Añade efecto de Evasion a la animación de activación de Assault Chase solo si el nivel de habilidad es 10.\n"
+        "**Dagger/Ninjutsu Scroll bonus:** * Reduce aún más el consumo de Evasion. * Aumenta la cantidad de poder de ataque cuerpo a cuerpo añadido cuando Evasion es exitosa. (el límite máximo permanece igual)."
+    ),
     details=(
         "**Habilidad Tier 5;** [Activo] Sin Restricciones {all}\n"
         "**Coste MP:** 800\n\n"
@@ -310,9 +321,6 @@ ASSAULT_CHASE = SkillText(
         "*  Duración del Buff: 3 minutos O cuando tu Evasion actual llega a 0\n"
         "*  Reduce el consumo de Evasion al usarla hacia tu objetivo o cerca del objetivo dentro de 7m en (2.5 * Skill Level)% [Dagger/Ninjutsu Bonus: +25%]. Esta reducción de Evasion se acumula multiplicativamente con la reducción de Evasion de Combat Knife.\n"
         "*  Otorga SRD% por cada vez que evitas daño exitosamente con Evasion en 1% [Dagger/Ninjutsu Bonus: duplica esta ganancia de SRD%]. Puedes obtener hasta un 20% de SRD independientemente del Skill Level. Nota: si usas esta habilidad de nuevo cuando tienes SRD%, empezarás desde 0% SRD.\n\n"
-        "* Un Dodge exitoso con Evasion mientras el buff está activo añade un efecto que aumenta el poder de ataque cuerpo a cuerpo.\n"
-        "* Añade efecto de Evasion a la animación de activación de Assault Chase solo si el nivel de habilidad es 10.\n"
-        "**Dagger/Ninjutsu Scroll bonus:** * Reduce aún más el consumo de Evasion. * Aumenta la cantidad de poder de ataque cuerpo a cuerpo añadido cuando Evasion es exitosa. (el límite máximo permanece igual)."
     ),
 )
 
@@ -324,12 +332,12 @@ POISON_MASTER = SkillText(
         "**Efecto Pasivo:**\n"
         "*  Aumenta el Base Skill Multiplier de Death Reception:\n"
         "  Con OHS o Barehand:\n"
-        "  > Death Reception Single Target Multiplier + 0.75 * Skill Level\n"
-        "  > Death Reception AOE Multiplier + 0.45 * Skill Level\n"
+        "  > Death Reception Multiplier (Objetivo Único) + 0.75 * Skill Level\n"
+        "  > Death Reception Multiplier (AoE) + 0.45 * Skill Level\n"
         "  Con todas las demás armas:\n"
-        "  > Death Reception Single Target Multiplier + 0.5 * Skill Level\n"
-        "  > Death Reception AOE Multiplier + 0.3 * Skill Level\n"
-        "  Este multiplicador extra se aplica después de determinar los valores originales del Single Target y AOE Hit Multiplier de Death Reception.\n\n"
+        "  > Death Reception Multiplier (Objetivo Único) + 0.5 * Skill Level\n"
+        "  > Death Reception Multiplier (AoE) + 0.3 * Skill Level\n"
+        "  Este multiplicador extra se aplica después de determinar los valores originales del Death Reception Multiplier (Objetivo Único) y (AoE).\n\n"
         "*  Aumenta la duración del Poison infligido por Venom Injection en +(Skill Level) segundos. Esto también aplica a la extensión de duración de Poison+1 y Poison+2, por lo que todos pasan de 30 segundos a 60 segundos de duración máxima.\n"
         "*  Permite que cada tick de daño de Deadly Poison tenga chance de infligir Poison/Poison+1/Poison+2 de (10 + 3 * Skill Level)% de la Chance Final de Poison+0 sin Critical/Graze (Venom Inject). [esta es una fórmula estimada de prueba y error, no es exacta; podría ser 2.5%... pero no lo sé, además Corrosive Poison no afecta mucho esto por alguna razón… así que basado solo en Venom Injection seguramente]."
     ),
