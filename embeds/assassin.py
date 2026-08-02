@@ -108,7 +108,23 @@ SKILL_EMOJIS: dict[str, str] = {
 
 TIER_ORDER = {"T1": 0, "T2": 1, "T3": 2, "T4": 3, "T5": 4}
 
-SKILL_IMAGES: dict[str, str] = {}
+SKILL_IMAGES: dict[str, str] = {
+    "assassinstab": "assassinstab.png",
+    "evasion": "evasion.png",
+    "backstep": "backstep.png",
+    "serum": "serum.png",
+    "arcanestrike": "arcanestrike.png",
+    "foresight": "foresight.png",
+    "sicarius": "sicarius.png",
+    "shadowwalk": "shadowwalk.png",
+    "venominjection": "venominjection.png",
+    "corrosivepoison": "corrosivepoison.png",
+    "venomthief": "venomthief.png",
+    "deathreception": "deathreception.png",
+    "secretassassin": "secretassassin.png",
+    "assaultchase": "assaultchase.png",
+    "poisonmaster": "poisonmaster.png",
+}
 
 SKILL_DIAGRAMS: dict[str, str] = {
     "assassinstab": "assass.png",
