@@ -1,4 +1,4 @@
-# 📋 REQUIREMENTS.md
+# REQUIREMENTS.md
 
 Requisitos técnicos para implementar y extender ramas en MMOSkill-embeds.
 

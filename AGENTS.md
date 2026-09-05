@@ -1,4 +1,4 @@
-# 🤖 AGENTS.md
+# AGENTS.md
 
 Este documento contiene instrucciones para agentes de IA que colaboren en el proyecto.
 

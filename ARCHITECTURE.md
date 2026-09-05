@@ -1,4 +1,4 @@
-# 🏗 Architecture
+# Architecture
 
 Este documento describe la arquitectura del proyecto y sirve como la **única fuente de verdad** para entender su funcionamiento interno.
 
@@ -248,4 +248,4 @@ Sin modificar el flujo de localización.
 
 ---
 
-> 📋 Para los contratos y convenciones de implementación, ver [REQUIREMENTS.md](./REQUIREMENTS.md).
+> Para los contratos y convenciones de implementación, ver [REQUIREMENTS.md](./REQUIREMENTS.md).
