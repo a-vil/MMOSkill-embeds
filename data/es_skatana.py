@@ -60,7 +60,7 @@ PULSE_BLADE = SkillText(
         "**Alcance máximo de Cast:** 12m\n\n"
         "**Efecto de la habilidad:**\n"
         "* Esta habilidad es tratada como un Unsheathe Attack\n"
-        "* Esta habilidad tiene una penalidad de DEF (o podría ser pierce físico negativo) basada en el nivel de la habilidad y la distancia entre el lanzador y el mob;\n"
+        "* Esta habilidad tiene una penalidad de DEF (o podría ser Physical Pierce negativo) basada en el nivel de la habilidad y la distancia entre el lanzador y el mob;\n"
         "la penalidad se aplica de la siguiente manera\n"
         "Distance Penalty = distancia al mob - Katana Max Auto Attack Range; este valor no puede ser menor a 0\n"
         "Target's Pulse Blade DEF = DEF del objetivo * (1 + Distance Penalty * (11 - Skill Level)/100)\n"
@@ -156,7 +156,7 @@ GARYOU_TENSEI = SkillText(
         "**Alcance máximo de Cast:** Por defecto el rango máximo de Auto Attack de katana\n\n"
         "**Efecto de la habilidad:**\n"
         "* Esta habilidad tiene Critical Rate -(110 - 10 * Skill Level)\n"
-        "* Al usarla, esta habilidad eliminará el buff de Kairiki Ranshin. A cambio, Kairiki puede otorgar 100 de flat crit rate y 100% de physical pierce a esta habilidad\n"
+        "* Al usarla, esta habilidad eliminará el buff de Kairiki Ranshin. A cambio, Kairiki puede otorgar 100 de flat crit rate y 100% de Physical Pierce a esta habilidad\n"
         "* Si el objetivo tiene el ailment Armor Break, Skill Constant se multiplica por 10\n"
         "* Después de usar esta habilidad, otorgará buffs que pueden reducir el daño recibido en (5% x número de stacks). Y su duración = (número de stacks) segundos\n"
         "* NO es Unsheathe Attack\n"
@@ -223,7 +223,7 @@ MAGADACHI = SkillText(
 
 ZANTEI_SETTETSU = SkillText(
     title="Zantei Settetsu",
-    description="**Descripción del juego:** *\"Abre a un enemigo con furia absorbiendo su ataque. Anula el daño una vez y hace un ataque adicional. Chance de infligir [Armor Break] con él.\"*",
+    description="**Descripción del juego:** *\"Abre a un enemigo con furia recibiendo su ataque. Anula el daño una vez y hace un ataque adicional. Chance de infligir [Armor Break] con él.\"*",
     details=(
         "**Habilidad Tier 3;** Solo Main/Sub {katana}\n"
         "**Coste MP:** 400\n"
@@ -442,7 +442,7 @@ NUKIUCHI_SENNOSEN = SkillText(
         "**Habilidad Tier 5;** Solo Main {katana}\n\n"
         "**Efecto Pasivo:**\n"
         "* Un efecto de brillo en la katana aparecerá después de cargarla durante (12 - Skill Level) segundos sin hacer ataques en absoluto, de lo contrario el tiempo de carga se reiniciará. Este efecto de brillo dura hasta que uses un autoataque o habilidades de ataque. Además, hacer un dash de katana también puede reducir el tiempo de carga del brillo en 1 segundo. Así que en el Nivel 10, después de hacer un dash de katana, obtendrás este efecto pasivo instantáneamente.\n"
-        "* Efecto de brillo: Reemplaza el Skill Multiplier total de tu Shukuchi Auto Attack por (400% del Multiplier del autoataque). Y su constante aumenta a medida que tu HP disminuye = (1000 * (100% - HP actual%)). Este Multiplier de Nukiuchi Auto Attack puede acumularse aditivamente con Kairiki, Berserk, etc. Mientras tanto, el Enhanced katana auto attack simplemente duplica el daño total del autoataque de Nukiuchi.\n"
+        "* Efecto de brillo: Reemplaza el Skill Multiplier total de tu Shukuchi Auto Attack por (400% del Multiplier del Auto Attack). Y su constante aumenta a medida que tu HP disminuye = (1000 * (100% - HP actual%)). Este Multiplier de Nukiuchi Auto Attack puede acumularse aditivamente con Kairiki, Berserk, etc. Mientras tanto, el Enhanced katana auto attack simplemente duplica el daño total del autoataque de Nukiuchi.\n"
         "* Además, este efecto de brillo puede convertir Pulse Blade en Swift Pulse Blade. Esto multiplica el daño de Pulse Blade por 5x en comparación con el normal. El daño de Pulse no cambia con diferentes HP. **Ten en cuenta que Swift Pulse Blade no inflige proration.**"
     ),
 )
@@ -459,7 +459,7 @@ DAUNTLESS = SkillText(
         "* Cuando Dauntless alcanza 10 stacks:\n"
         "* Aumenta Accuracy = +(Stack/10 * 10)\n"
         "* Cuando Dauntless alcanza 20 stacks:\n"
-        "* Flat Watk aumentado en +(Stack/10 * 5)\n"
+        "* Flat WATK aumentado en +(Stack/10 * 5)\n"
         "* Cuando Dauntless alcanza 30 stacks:\n"
         "* Unsheathe% aumentado en +(Stack/10)%\n"
         "* Cuando Dauntless alcanza 40 stacks:\n"
@@ -533,7 +533,7 @@ GUST = SkillText(
         "**Easterly Wind** [Gust + ←] 🌸\n"
         "* **Base Skill Multiplier:** 5 + 0.3 * Skill Level + Gust Stack\n"
         "* **Base Skill Constant:** 300\n"
-        "* Alcance máximo de Cast: 20m; pero solo golpea desde 5m o menos, de lo contrario será Miss.\n"
+        "* Alcance máximo de Cast: 20m; pero solo golpea desde 5m o menos, de lo contrario fallará.\n"
         "* El movimiento de esta habilidad es tratado como [Evasion].\n"
         "* Esta habilidad es afectada por short range damage; afectada por long range skill; usa e inflige proration normal.\n"
         "**Southerly Wind** [Gust + ↓] ☀️\n"
@@ -548,13 +548,13 @@ GUST = SkillText(
         "* Condición de desbloqueo: aprender \"Shukuchi\".\n"
         "* Número de golpes: 2 Hits; el cálculo de daño se realiza una vez y se distribuye equitativamente entre los hits.\n"
         "* Alcance máximo de Cast: 20m. Al usar esta habilidad, tu personaje se teletransporta a 0m frente al enemigo.\n"
-        "* Esta habilidad usa physical pierce * 4 de tu physical pierce% total.\n"
+        "* Esta habilidad usa Physical Pierce * 4 de tu Physical Pierce% total.\n"
         "* Esta habilidad es forzada a ser afectada por short range damage; afectada por long range skill; usa e inflige proration normal.\n"
         "**Westerly Wind** [Gust + →] ❄️\n"
         "* **Base Skill Multiplier:** 2.5 + 0.6 * Skill Level + 0.5 * Gust Stack\n"
         "* **Base Skill Constant:** 300\n"
         "* Número de golpes: 2 Hits; el cálculo de daño se realiza una vez y se distribuye equitativamente entre los hits.\n"
-        "* Alcance máximo de Cast: 20m; pero solo golpea desde 5m o menos, de lo contrario será Miss.\n"
+        "* Alcance máximo de Cast: 20m; pero solo golpea desde 5m o menos, de lo contrario fallará.\n"
         "* Esta habilidad tiene el atributo perfect aim.\n"
         "* Esta habilidad es afectada por short range damage; afectada por long range skill; usa e inflige proration normal.\n\n"
         "* Mientras gust está activo, no puedes usar \"Divine Slash\".\n\n"
@@ -574,7 +574,7 @@ FOUR_SEASONS = SkillText(
         "* 4to Ataque (1 hit): 20.5 + 0.3 * Skill Level + Gust Stack\n"
         "**Base Skill Constant:** 300\n"
         "* Para el 1er y 2do ataque, el cálculo de daño se realiza una vez y se distribuye equitativamente entre los 2 hits.\n"
-        "* Four Seasons tiene el atributo perfect aim, 100% de physical pierce, y siempre el elemento más fuerte contra el enemigo.\n"
+        "* Four Seasons tiene el atributo perfect aim, 100% de Physical Pierce, y siempre el elemento más fuerte contra el enemigo.\n"
         "* Toda la animación de Four Seasons anulará todo el daño recibido, pero reduce el daño de su siguiente ataque: 2do Ataque -50% de daño, 3er Ataque -40% de daño, 4to Ataque -25% de daño. Aún puedes recibir ailments e inmovilización durante la animación de esta habilidad y tus buffs \"intactos\" (ej: Brave Aura, Godspeed Wield) también desaparecerán.\n"
         "* Four Seasons no se activará al luchar contra monstruos pequeños (que no sean Boss/miniboss).\n\n"
         "**Alcance máximo de Cast:** 20m\n\n"
