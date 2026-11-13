@@ -35,8 +35,8 @@ description: Localiza archivos .txt de inglés a español. Se activa con "traduc
 > ⚠️ **Nuevas palabras en excluded/custom:** Cualquier palabra nueva propuesta para `words_excluded.txt` o `words_custom.txt` debe ser aprobada por el usuario antes de añadirla. No agregar palabras sin consentimiento explícito.
 
 1. Leer archivo fuente (.txt o .md)
-2. Leer `data/words_excluded.txt`
-3. Leer `data/words_custom.txt`
+2. Leer `data/words_excluded.txt` — palabras excluidas (no se localizan)
+3. Leer `data/words_custom.txt` — traducciones específicas con variables {n}
 4. Consultar `STYLE_GUIDE.md` para reglas de estilo y terminología
 5. Identificar skills por su delimitador:
    - Archivos `.txt`: `<>` antes del nombre (ej: `<>Power Shot`)
@@ -46,31 +46,21 @@ description: Localiza archivos .txt de inglés a español. Se activa con "traduc
    - Localizar usando las reglas de naturalidad de `STYLE_GUIDE.md`
    - Mantener palabras excluidas sin localizar
 7. Generar archivo .py con formato SkillText
-8. Evaluar la localización — verificar TODAS las reglas de `STYLE_GUIDE.md`:
-   - **§1 Terminología Oficial:** Miss, Guard, Evasion, Graze, Anticipate,
-     Absolute Critical, etc. mantenidos en inglés.
-   - **§2 Reglas de Naturalidad:** Verbos conjugados → sustantivos mecánicos
-     (`resulta en Miss`, no `falla`); redundancia nominal; "pasivo/a" (femenino
-     como sustantivo); plural en genéricos; calcos del inglés.
-   - **§3 Formato y Markdown:** Viñetas `*`, corchetes para ailments.
-   - **§4 Ejemplos de referencia:** Estándar de calidad.
-   - **§5 Anglicismos Naturalizados:** Buff, Cooldown, Slot, Hit, DEF con
-     artículos españoles normales.
-   - **§6 Traducción Fiel:** No inventar contenido condicional; "current" →
-     "actual".
-   - **§7 Términos Técnicos en Inglés:** Género y artículo correctos.
-   - **§8 Desambiguación Stat vs Descriptivo:** Critical Damage (stat) vs
-     daño crítico (descriptivo), Absolute Critical (estado).
+8. Evaluar la localización — verificar TODAS las reglas de `STYLE_GUIDE.md`
+   (§1–§8), además de:
+   - **`description` vs `details`:** Solo la info adicional visible va en
+     `description`; en cualquier otro caso (seguro que es dato de `details`
+     o duda), consultar (ver "Formato de salida").
    - **words_excluded.txt:** Ninguna palabra excluida localizada al español.
    - **words_custom.txt:** Todas las traducciones custom aplicadas
      correctamente.
-    - **Placeholders `{weapon}`:** Solo en líneas de restricción de arma, no
-      en bonus/labels.
-    - **"Main {weapon}" / "{weapon} Main" / "Sub {weapon}":** Cuando
-      "Main" o "Sub" califican directamente al nombre del arma como
-      estado (arma principal/secundaria), preservar "Main"/"Sub" en
-      inglés con mayúscula inicial. NO traducir a "principal"/"secundaria".
-      Ej: "Main Katana", "Sub Knuckle", "Main Magic Device Only".
+   - **Placeholders `{weapon}`:** Solo en líneas de restricción de arma, no
+     en bonus/labels.
+   - **"Main {weapon}" / "{weapon} Main" / "Sub {weapon}":** Cuando
+     "Main" o "Sub" califican directamente al nombre del arma como
+     estado (arma principal/secundaria), preservar "Main"/"Sub" en
+     inglés con mayúscula inicial. NO traducir a "principal"/"secundaria".
+     Ej: "Main Katana", "Sub Knuckle", "Main Magic Device Only".
    - Documentar los hallazgos para el paso siguiente.
 9. Informe post-localización — documentar hallazgos para corrección manual y
    mantener consistencia.
@@ -99,12 +89,43 @@ class SkillText:
 
 SKILL_NAME = SkillText(
     title="Título",
-    description="**Descripción del juego:** *\"...\"*",
+    description=(
+        "**Descripción del juego:** *\"...\"*\n"
+        "Info adicional visible (si existe)."
+    ),
     details="**Habilidad Tier X;** Solo {bow} / {bowgun}..."
 )
 ```
 
 > **Referencia:** `data/es_sshot.py` contiene el ejemplo completo con 25 skills en este formato.
+>
+> **Nota:** el orden de campos del `.py` no cambia: `title → description → details`.
+
+### `description` vs `details`
+
+Estructura del archivo fuente:
+
+```text
+<>skill title
+      ↓
+details                 → stats, fórmulas, mecánicas + info de investigación
+      ↓
+game description        → texto transcrito, visible al jugador
+      ↓
+info adicional visible  → (si existe) también visible al jugador
+```
+
+| Sección del fuente | Destino |
+|---|---|
+| `details` | **`details`** |
+| `game description` | **`description`** (localizada) |
+| `info adicional visible` | **`description`** (debajo del texto localizado de la game description) |
+
+- `description` = game description localizada + info adicional visible (si existe).
+- `details` = stats, fórmulas, mecánicas e info de investigación **no visible**.
+- **Solo se coloca en `description` el texto que sea con seguridad info adicional
+  visible. En cualquier otro caso (seguro que es dato de `details` o duda) →
+  consultar al usuario.**
 
 ## Matching de palabras
 
@@ -137,11 +158,6 @@ Ambos archivos (excluidas y custom) usan las mismas reglas:
 - **Etiquetas compuestas:** Una custom word como `Hit Count` NO coincide dentro
   de `Wave Hit Count` o `First Hit Ailment Chance` por la regla de frase exacta.
   La corrección manual debe seguir el patrón de reorganización de `STYLE_GUIDE.md`.
-
-## Archivos de datos
-
-- `data/words_excluded.txt` — palabras excluidas (no se localizan)
-- `data/words_custom.txt` — traducciones específicas con variables {n}
 
 ## Guía de Estilo
 
