@@ -15,11 +15,11 @@ class SkillText:
     details: str
 
 ENHANCED_AUTO_ATTACK = SkillText(
-    title="Autoataque Mejorado",
+    title="Autoataque mejorado",
     description=(
-        "* Al usar Main Katana (no Sub-Katana), obtienes pasivamente la habilidad de hacer un dash después de un autoataque (todo lo que necesitas es autoataque y moverte al mismo tiempo). Lo llamamos 'Enhanced auto-attack buff'.\n"
-        "Este buff duplica el daño total de tu autoataque (se acumula multiplicativamente con otros modificadores de autoataque como Kairiki, Nukiuchi, Berserk, etc.), otorga un 50% de bonus de AMPR y también otorga Absolute Critical en el enhanced auto-attack. Este buff termina después de usar un autoataque.\n\n"
-        "* Además, puedes hacer un dash después de usar una habilidad y también obtener el Enhanced auto-attack buff. Estas habilidades son Pulse Blade, Hasso Happa, Bouncing Blade, Shadowless Slash. Bow+katana puede realizar esto, pero no puede obtener el Enhanced auto-attack buff."
+        "* Al usar Main Katana (no Sub-Katana), obtienes pasivamente la habilidad de hacer un dash después de un autoataque (todo lo que necesitas es autoataque y moverte al mismo tiempo). Lo llamamos 'buff del autoataque mejorado'.\n"
+        "Este buff duplica el daño total de tu autoataque (se acumula multiplicativamente con otros modificadores de autoataque como Kairiki, Nukiuchi, Berserk, etc.), otorga un bonus de AMPR del 50% y también otorga Absolute Critical en el autoataque mejorado. Este buff termina después de usar un autoataque.\n\n"
+        "* Además, puedes hacer un dash después de usar una habilidad y también obtener el buff del autoataque mejorado. Estas habilidades son Pulse Blade, Hasso Happa, Bouncing Blade, Shadowless Slash. Bow+katana puede realizar esto, pero no puede obtener el buff del autoataque mejorado."
     ),
     details="",
 )
@@ -60,7 +60,7 @@ PULSE_BLADE = SkillText(
         "**Alcance máximo de Cast:** 12m\n\n"
         "**Efecto de la habilidad:**\n"
         "* Esta habilidad es tratada como un Unsheathe Attack\n"
-        "* Esta habilidad tiene una penalidad de DEF (o podría ser Physical Pierce negativo) basada en el nivel de la habilidad y la distancia entre el lanzador y el mob;\n"
+        "* Esta habilidad tiene una penalidad de DEF (o podría ser Physical Pierce negativo%) basada en el nivel de la habilidad y la distancia entre el lanzador y el mob;\n"
         "la penalidad se aplica de la siguiente manera\n"
         "Distance Penalty = distancia al mob - Katana Max Auto Attack Range; este valor no puede ser menor a 0\n"
         "Target's Pulse Blade DEF = DEF del objetivo * (1 + Distance Penalty * (11 - Skill Level)/100)\n"
@@ -95,8 +95,8 @@ TRIPLE_THRUST = SkillText(
 HASSO_HAPPA = SkillText(
     title="Hasso Happa",
     description=(
-        "**Descripción del juego:** *\"Corta a todos los enemigos en un cierto espacio. Inflige daño a los enemigos a tu alrededor sin Miss. Puedes moverte al envainar la katana.\"*\n"
-        "El buff a la constante de Triple Thrust's se divide por el Número de golpes\n"
+        "**Descripción del juego:** *\"Corta a todos los enemigos en un cierto espacio. Inflige daño a los enemigos a tu alrededor sin fallar. Puedes moverte al envainar la katana.\"*\n"
+        "El buff a la constante de Triple Thrust's se divide por el número de golpes\n"
         "El daño de esta habilidad ~~no es afectado~~ **es afectado** por Whack, pero es afectado por los modificadores de Short Range Damage independientemente de la distancia"
     ),
     details=(
@@ -115,7 +115,7 @@ HASSO_HAPPA = SkillText(
         "* Esta habilidad tiene el atributo Perfect Aim\n"
         "* Si esta habilidad se usa fuera de un combo o como la última habilidad de un combo, y no estás afectado por el ailment Slow o el ailment Stop, puedes hacer dash en cualquier dirección usando el \"trackball\" de movimiento durante la animación de envainado de la habilidad\n"
         "* **[Solo Main Katana]** Si usas esta habilidad después de Kasumisetsu Getsuka, entonces usarás una versión mejorada, Sakura Ranman, que añade un multiplicador extra ~~(+1 + 0.5 + 0.5)~~ (+1 +1 +1) a cada hit correspondiente en comparación con el multiplicador original de Hasso. Además, otorga +300 MP de recuperación por cada hit exitoso de Sakura Ranman [límite de 600 MP].\n\n"
-        "Nota sobre Sakura Ranman: Dado que Kasumisetsu Getsuka otorga 1 stack de Sakura. Así que para activar Sakura Ranman, solo necesitas tener ese 1 stack de Sakura y usar Hasso Happa en cualquier momento."
+        "Nota sobre Sakura Ranman: dado que Kasumisetsu Getsuka otorga 1 stack de Sakura, para activar Sakura Ranman solo necesitas ese stack y usar Hasso Happa en cualquier momento."
     ),
 )
 
@@ -133,7 +133,7 @@ TENRYU_RANSEI = SkillText(
         "**Efecto de la habilidad:**\n"
         "* Esta habilidad es tratada como un Unsheathe Attack\n"
         "* La habilidad tiene un modificador de Motion Speed de (125 - 15 * número de stacks[máx 3 stacks])%;\n"
-        "* Si tu última acción fue Tenryu Ransei, entonces usar Tenryu Ransei de nuevo no infligirá proration. Nota: Autoataque se considera una acción, por lo que hacer Tenryu luego auto luego Tenryu luego auto repetidamente, tampoco aumenta el daño de proration de Tenryu.\n\n"
+        "* Si tu última acción fue Tenryu Ransei, entonces usar Tenryu Ransei de nuevo no infligirá proration. Nota: El autoataque se considera una acción, por lo que hacer Tenryu luego auto luego Tenryu luego auto repetidamente, tampoco aumenta el daño de proration de Tenryu.\n\n"
         "**Efecto del Buff:**\n"
         "* Cada vez que se usa la habilidad, ganas un stack; puedes tener un máximo de 4 stacks\n"
         "* El Coste MP de esta habilidad se vuelve 100\n"
@@ -177,7 +177,7 @@ POMMEL_STRIKE = SkillText(
     title="Pommel Strike",
     description=(
         "**Descripción del juego:** *\"Golpea a un enemigo con el pomo. Chance de infligir [Paralysis]. Chance de infligir [Stun] si el objetivo está paralizado.\"*\n"
-        "Mind's Eye detendrá la habilidad si el objetivo tiene el ailment Paralysis"
+        "Mind's eye detendrá la habilidad si el objetivo tiene el ailment Paralysis"
     ),
     details=(
         "**Habilidad Tier 1;** Solo Main/Sub {katana}\n"
@@ -375,9 +375,9 @@ BOUNCING_BLADE = SkillText(
         "**Número de golpes:** 1 hit\n"
         "**Alcance máximo de Cast:** Por defecto el rango máximo de Auto Attack de katana\n\n"
         "**Efecto de la habilidad:**\n"
-        "* Si recibes daño una vez durante la animación de esta habilidad, entonces esta habilidad infligirá daño a cambio y ganarás stack de Garyou por (+ stack actual de Garyou que tengas + 2).\n"
+        "* Si recibes daño una vez durante la animación de esta habilidad, entonces esta habilidad infligirá daño a cambio y ganarás (+ stack actual de Garyou + 2) stacks de Garyou.\n"
         "Ej: usarla cuando tienes 4 stacks de Garyou, luego haces un parry exitoso, ganarás 4 + 2 = 6 stacks.\n"
-        "* Si no recibes daño, entonces esta habilidad no inflige daño ni inflige proration. Inmune a Flinch, Tumble y Stun durante la recepción de daño\n\n"
+        "* Si no recibes daño, entonces esta habilidad no inflige daño ni inflige proration. Inmune a Flinch, Tumble y Stun mientras recibes daño\n\n"
         "**Efecto del Buff:**\n"
         "* Al recibir daño con esta habilidad, recuperará tu HP basado en cuánto daño se recibió. Recupera HP +(Skill Lvl * 10)% del daño recibido\n"
         "* Después de recibir daño exitosamente con esta habilidad, el coste de MP de la siguiente habilidad se reducirá a la mitad. Además, otorga Accuracy en (Base Accuracy * Total Weapon ATK * (0.05 + 0.02 * Skill Lvl)%)"
@@ -388,7 +388,7 @@ KASUMISETSU_GETSUKA = SkillText(
     title="Kasumisetsu Getsuka",
     description=(
         "**Descripción del juego:** *\"Ataca al objetivo con una serie de cortes y reduce ligeramente el daño recibido mientras está activo. Realiza un ataque especial si Tenryu Ransei está activo, y el número de veces que se usa determina la duración del aumento de poder.\"*\n"
-        "Bowtana usando esta habilidad, su rango de cast es por defecto el rango máximo de Auto Attack de Bow.\n"
+        "Al usar esta habilidad con Bowtana, su rango de cast es por defecto el rango máximo de Auto Attack de Bow.\n"
         "Si usas esta habilidad cuando no tienes un stack de Tenryu, entonces esta habilidad no renovará el buff de Tenryu Ransei."
     ),
     details=(
@@ -420,8 +420,8 @@ SHADOWLESS_SLASH = SkillText(
     title="Shadowless Slash",
     description=(
         "**Descripción del juego:** *\"Corta rápidamente al enemigo. Es tan rápido que ni siquiera el enemigo sabe cuándo la katana sale de su vaina. Ataca con alta precisión y otorga 2 de los buffs de Garyou Tensei. Puedes moverte al envainar la katana.\"*\n"
-        "Bowtana usando esta habilidad, su rango de cast es por defecto el rango máximo de Auto Attack de Bow.\n"
-        "Usando el combo \"Shadowless->Garyou\", el daño de proration de Divine Slash es el mismo que la proration de Shadowless."
+        "Al usar esta habilidad con Bowtana, su rango de cast es por defecto el rango máximo de Auto Attack de Bow.\n"
+        "Usando el combo \"Shadowless → Garyou\", el daño de proration de Divine Slash es el mismo que la proration de Shadowless."
     ),
     details=(
         "**Habilidad Tier 5;** Solo {katana}\n"
@@ -436,9 +436,9 @@ SHADOWLESS_SLASH = SkillText(
         "* Esta habilidad ~~no es afectada~~ es afectada por SRD% independientemente de la distancia\n"
         "* Esta habilidad otorga +2 stacks de Garyou en total.\n"
         "* La Accuracy de esta habilidad aumenta en 200 * Skill Level\n"
-        "* Además, obtienes la habilidad de hacer un dash después de usar esta habilidad. Obtienes el Enhanced auto-attack buff después de hacer el dash exitosamente (Bowtana no puede obtener este buff mejorado).\n"
+        "* Además, obtienes la habilidad de hacer un dash después de usar esta habilidad. Obtienes el buff del autoataque mejorado después de hacer el dash exitosamente (Bowtana no puede obtener este buff mejorado).\n"
         "* **Solo Main Katana**: Si tienes stack de Garyou 10/10 y tu Garyou adquirido está al nivel máximo, entonces usar Garyou durante la animación de Shadowless se convertirá en Divine Slash que inflige un daño tremendo, y es afectado por Unsheathe y SRD%. Puedes poner una habilidad entre ellas y aún así activar Divine Slash, pero debes activar Divine Slash durante la animación de golpe de Shadowless.\n"
-        "* Divine Slash tiene perfect aim e Invencibilidad sobre ti mismo durante 2s\n"
+        "* Divine Slash tiene Perfect Aim e Invencibilidad sobre ti mismo durante 2s\n"
         "* Divine Slash tiene (10 * Kairiki lvl) de Critical Rate y (10 * Kairiki lvl) de Physical Pierce%.\n"
         "* Al realizar este Divine Slash, obtendrás automáticamente el buff de Kairiki Ranshin (su efecto sigue el nivel de Kairiki Ranshin)\n"
         "* Divine Slash solo resulta en Evasion durante fases de evasión absoluta/forzada como Evil Crystal Beast.\n\n"
@@ -446,14 +446,14 @@ SHADOWLESS_SLASH = SkillText(
         "**Divine Slash Constant:** 500 (sin Armor Break) o 1000 (con Armor Break)\n"
         "**Número de golpes:** 1\n"
         "Nota: BaseWATK no incluye refine, WATK% de equipo/etc. BaseWATK de Dauntless podría estar incluido.\n\n"
-        "**Efecto del Buff:** Unsheathe Attack +TRUNC((Total STR + Total DEX)/51)%\n"
+        "**Efecto del Buff:** Unsheathe Attack +TRUNC((TotalSTR + TotalDEX)/51)%\n"
         "**Duración del Buff:** después de que Divine Slash aterrice; 10 segundos\n\n"
         "**Información de Proration:**\n"
         "* Shadowless Slash usa proration física en el momento del cast, aunque el daño aparezca después.\n"
         "* Shadowless Slash inflige proration física al final de la habilidad.\n"
         "* Si Shadowless Slash se vuelve a lanzar antes de que aparezca el registro de daño, la proration se cancela.\n"
         "* Los cálculos de Divine Slash se realizan tan pronto como aparece el texto, no en el momento de aterrizar.\n"
-        "* Por lo tanto, Shadowless -> Divine Slash deja -2 de proration física, pero Shadowless y Divine Slash en sí mismos no se verán afectados por eso."
+        "* Por lo tanto, Shadowless → Divine Slash deja -2 de proration física, pero Shadowless y Divine Slash en sí mismos no se verán afectados por eso."
     ),
 )
 
@@ -464,7 +464,7 @@ NUKIUCHI_SENNOSEN = SkillText(
         "**Habilidad Tier 5;** Solo Main {katana}\n\n"
         "**Efecto Pasivo:**\n"
         "* Un efecto de brillo en la katana aparecerá después de cargarla durante (12 - Skill Level) segundos sin hacer ataques en absoluto, de lo contrario el tiempo de carga se reiniciará. Este efecto de brillo dura hasta que uses un autoataque o habilidades de ataque. Además, hacer un dash de katana también puede reducir el tiempo de carga del brillo en 1 segundo. Así que en el Nivel 10, después de hacer un dash de katana, obtendrás este efecto pasivo instantáneamente.\n"
-        "* Efecto de brillo: Reemplaza el Skill Multiplier total de tu Shukuchi Auto Attack por (400% del Multiplier del Auto Attack). Y su constante aumenta a medida que tu HP disminuye = (1000 * (100% - HP actual%)). Este Multiplier de Nukiuchi Auto Attack puede acumularse aditivamente con Kairiki, Berserk, etc. Mientras tanto, el Enhanced katana auto attack simplemente duplica el daño total del autoataque de Nukiuchi.\n"
+        "* Efecto de brillo: Reemplaza el Skill Multiplier total de tu Shukuchi Auto Attack por (400% del Multiplier del Auto Attack). Y su constante aumenta a medida que tu HP disminuye = (1000 * (100% - HP actual%)). Este Multiplier de Nukiuchi Auto Attack puede acumularse aditivamente con Kairiki, Berserk, etc. Mientras tanto, el autoataque mejorado de katana simplemente duplica el daño total del autoataque de Nukiuchi.\n"
         "* Además, este efecto de brillo puede convertir Pulse Blade en Swift Pulse Blade. Esto multiplica el daño de Pulse Blade por 5x en comparación con el normal. El daño de Pulse no cambia con diferentes HP. **Ten en cuenta que Swift Pulse Blade no inflige proration.**"
     ),
 )
@@ -522,7 +522,7 @@ GUST = SkillText(
     title="Gust",
     description=(
         "**Descripción del juego:** *\"Adopta una postura de doble katana. Elimina y convierte el poder de Unsheathe en ATK y Weapon ATK. Reactivar Gust mientras está activo producirá un efecto diferente según la entrada de tecla. El efecto termina cuando te mueves mientras envainas tu katana (animación de deslizamiento de katana).\"*\n"
-        "**Katana bonus:** Still wind, Northerly Wind, Easterly Wind, Westerly Wind y Southerly Wind pueden activarse con entrada de tecla sin terminar el efecto de Meikyo Shisui. Después de asumir la postura \"Still Wind\", aún puedes hacer la transición a la habilidad correspondiente con una entrada de tecla. (El MP solo se consume al activar Still Wind)."
+        "**Katana bonus:** Still Wind, Northerly Wind, Easterly Wind, Westerly Wind y Southerly Wind pueden activarse con entrada de tecla sin terminar el efecto de Meikyo Shisui. Después de asumir la postura \"Still Wind\", aún puedes hacer la transición a la habilidad correspondiente con una entrada de tecla. (El MP solo se consume al activar Still Wind)."
     ),
     details=(
         "**Habilidad Tier 3;** [Activo] {katana}\n"
@@ -546,7 +546,7 @@ GUST = SkillText(
         "* **Auto Attack Skill Multiplier:** 6 + 0.3 * Skill Level\n"
         "* **Auto Attack Skill Constant:** 200\n"
         "* Todo el cálculo de daño de autoataque se realiza una vez y luego se distribuye equitativamente entre los hits.\n\n"
-        "* Activa ataques de temporada al re-lanzar + entrada de tecla (referencia de dirección = tú hacia el mob):\n"
+        "* Activa Seasons Attacks al re-lanzar + entrada de tecla (referencia de dirección = tú hacia el mob):\n"
         "**Still Wind** [Gust + sin dirección]\n"
         "Parry todos los ataques de monstruos durante la animación. Al hacer un parry exitoso, infligirás 1 hit adicional con Still Wind:\n"
         "* **Base Skill Multiplier (Still Wind Counter):** 5 + 0.5 * Skill Level\n"
@@ -571,34 +571,34 @@ GUST = SkillText(
         "* **Base Skill Multiplier:** 8.5 + 0.2 * Skill Level - 1.5 * Gust Stack\n"
         "* **Base Skill Constant:** 300\n"
         "* Condición de desbloqueo: aprender \"Shukuchi\".\n"
-        "* Número de golpes: 2 Hits; el cálculo de daño se realiza una vez y se distribuye equitativamente entre los hits.\n"
+        "* **Número de golpes:** 2 hits; el cálculo de daño se realiza una vez y se distribuye equitativamente entre los hits.\n"
         "* Alcance máximo de Cast: 20m. Al usar esta habilidad, tu personaje se teletransporta a 0m frente al enemigo.\n"
         "* Esta habilidad usa Physical Pierce * 4 de tu Physical Pierce% total.\n"
         "* Esta habilidad es forzada a ser afectada por Short Range Damage; afectada por Long Range Skill; usa e inflige proration normal.\n"
         "**Westerly Wind** [Gust + →] ❄️\n"
         "* **Base Skill Multiplier:** 2.5 + 0.6 * Skill Level + 0.5 * Gust Stack\n"
         "* **Base Skill Constant:** 300\n"
-        "* Número de golpes: 2 Hits; el cálculo de daño se realiza una vez y se distribuye equitativamente entre los hits.\n"
+        "* **Número de golpes:** 2 hits; el cálculo de daño se realiza una vez y se distribuye equitativamente entre los hits.\n"
         "* Alcance máximo de Cast: 20m; pero solo golpea desde 5m o menos, de lo contrario resultará en Miss.\n"
-        "* Esta habilidad tiene el atributo perfect aim.\n"
+        "* Esta habilidad tiene el atributo Perfect Aim.\n"
         "* Esta habilidad es afectada por Short Range Damage; afectada por Long Range Skill; usa e inflige proration normal.\n"
-        "Mientras gust está activo, no puedes usar \"Divine Slash\"."
+        "Mientras Gust está activo, no puedes usar \"Divine Slash\"."
     ),
 )
 
 FOUR_SEASONS = SkillText(
     title="🍁 ❄️ Four Seasons ☀️ 🌸",
     description=(
-        "Esta es una interacción de los Ataques de Temporada de la habilidad Gust.\n\n"
-        "**Condición de Activación:** Realizar exitosamente ⬅️ Easterly Wind > ⬇️ Southerly Wind > ⬆️ Northerly Wind > ➡️ Westerly Wind > Efecto de Brillo de Nukiuchi Sennosen, y luego re-lanzar la habilidad \"Gust\". La activación de las Habilidades de Gust Direccional/Estacional tiene que ser en el orden correcto y no debe repetirse antes de lanzar \"Four Seasons\". Ser inmovilizado también hace que \"Four Seasons\" falle; aunque, puedes lanzar cualquier otra habilidad o caminar antes de continuar con cada ritual.\n\n"
+        "Esta es una interacción de los Seasons Attacks de la habilidad Gust.\n\n"
+        "**Condición de Activación:** Realizar exitosamente ⬅️ Easterly Wind > ⬇️ Southerly Wind > ⬆️ Northerly Wind > ➡️ Westerly Wind > Efecto de brillo de Nukiuchi Sennosen, y luego re-lanzar la habilidad \"Gust\". La activación de Seasons/Directional Gust Skills tiene que ser en el orden correcto y no debe repetirse antes de lanzar \"Four Seasons\". Ser inmovilizado también hace que \"Four Seasons\" falle; aunque, puedes lanzar cualquier otra habilidad o caminar antes de continuar con cada ritual.\n\n"
         "**Base Skill Multiplier:**\n"
         "* 1er Ataque (2 hits): 20.5 + 0.2 * Skill Level - 1.5 * Gust Stack\n"
         "* 2do Ataque (2 hits): 17 + 0.6 * Skill Level + 0.5 * Gust Stack\n"
         "* 3er Ataque (1 hit): 17 + 0.2 * Skill Level + 1.5 * Gust Stack\n"
         "* 4to Ataque (1 hit): 20.5 + 0.3 * Skill Level + Gust Stack\n"
         "**Base Skill Constant:** 300\n"
-        "* Para el 1er y 2do ataque, el cálculo de daño se realiza una vez y se distribuye equitativamente entre los 2 hits.\n"
-        "* Four Seasons tiene el atributo perfect aim, 100% de Physical Pierce, y siempre el elemento más fuerte contra el enemigo.\n"
+        "* Para el 1er y 2do Ataque, el cálculo de daño se realiza una vez y se distribuye equitativamente entre los 2 hits.\n"
+        "* Four Seasons tiene el atributo Perfect Aim, 100% de Physical Pierce, y siempre el elemento más fuerte contra el enemigo.\n"
         "* Toda la animación de Four Seasons anulará todo el daño recibido, pero reduce el daño de su siguiente ataque: 2do Ataque -50% de daño, 3er Ataque -40% de daño, 4to Ataque -25% de daño. Aún puedes recibir ailments e inmovilización durante la animación de esta habilidad y tus buffs \"intactos\" (ej: Brave Aura, Godspeed Wield) también desaparecerán.\n"
         "* Four Seasons no se activará al luchar contra monstruos pequeños (que no sean Boss/miniboss).\n\n"
         "**Alcance máximo de Cast:** 20m\n\n"
@@ -609,7 +609,7 @@ FOUR_SEASONS = SkillText(
 
 ZEPHYR_RUSH = SkillText(
     title="Zephyr Rush",
-    description="**Descripción del juego:** *\"Escapa del peligro como una brisa repentina (solo mientras estás en estado Gust). Obtienes invencibilidad mientras estás en el aire, luego desciendes y realizas un corte después de un tiempo o al usar una entrada de tecla. El poder aumenta según la duración de la invencibilidad, pero será un MISS si no hay ningún objetivo en el punto de aterrizaje.\"*",
+    description="**Descripción del juego:** *\"Escapa del peligro como una brisa repentina (solo mientras estás en estado Gust). Obtienes invencibilidad mientras estás en el aire, luego desciendes y realizas un corte después de un tiempo o al usar una entrada de tecla. El poder aumenta según la duración de la invencibilidad, pero será un Miss si no hay ningún objetivo en el punto de aterrizaje.\"*",
     details=(
         "**Habilidad Tier 4;** [Activo] {katana}\n"
         "**Coste MP:** 400\n"

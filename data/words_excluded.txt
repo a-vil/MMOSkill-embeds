@@ -82,7 +82,6 @@ Easy
 Element Starter
 Enchant Sword
 Enchanted Barriers
-Enhanced Auto Attack
 Ether Flare
 evade
 Evasion

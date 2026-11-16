@@ -39,6 +39,10 @@ decoy hit range → Rango de golpe de Decoy
 Decoy Hit → Golpe de Decoy
 decoy's Decoy Auto Multiplier → Decoy Auto Multiplier
 Dual Element → Elemento Dual
+Enhanced Auto Attack → Autoataque mejorado
+Enhanced auto-attack buff → buff del autoataque mejorado
+enhanced auto-attack → autoataque mejorado
+Enhanced-auto attack buff → buff del autoataque mejorado
 Fatal Shot Critical Rate → Critical Rate de Fatal Shot
 Fatal Shot Skill Accuracy → Accuracy de Fatal Shot
 for that hit only → solo para ese golpe
